@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+<title>Medic Ready — VVC Paramedic Academy Entrance Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C1119; --panel:#141C28; --panel2:#1B2534; --line:#26313f;
+    --tx:#E8EDF3; --mut:#8A97A8; --dim:#5D6B7D;
+    --teal:#35D0BA; --teal-d:#1f8f80; --amber:#F5A524; --crim:#E5484D; --green:#3DD68C;
+    --r:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  html,body{background:var(--ink);color:var(--tx);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh;padding:0 16px 64px;-webkit-tap-highlight-color:transparent;
+       padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));
+       padding-bottom:max(64px,calc(env(safe-area-inset-bottom) + 40px))}
+  button{-webkit-tap-highlight-color:transparent}
+  .wrap{max-width:820px;margin:0 auto}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .disp{font-family:'Space Grotesk',sans-serif}
+
+  /* ---------- Header ---------- */
+  header{padding:22px 4px 10px;position:relative}
+  .brand{display:flex;align-items:center;gap:12px}
+  .pulse-badge{width:38px;height:38px;border-radius:9px;background:linear-gradient(150deg,var(--teal),var(--teal-d));display:grid;place-items:center;flex-shrink:0;box-shadow:0 0 0 1px rgba(53,208,186,.25),0 8px 24px -8px rgba(53,208,186,.5)}
+  .pulse-badge span{font-family:'Space Grotesk';font-weight:700;color:#06231f;font-size:20px}
+  .brand h1{font-family:'Space Grotesk';font-weight:700;font-size:19px;letter-spacing:-.3px;line-height:1.05}
+  .brand .sub{color:var(--mut);font-size:12px;margin-top:2px;letter-spacing:.2px}
+  .ecg{height:34px;width:100%;margin-top:14px;opacity:.9}
+  .ecg path{fill:none;stroke:var(--teal);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:1400;stroke-dashoffset:1400;animation:trace 4.5s linear infinite}
+  @keyframes trace{to{stroke-dashoffset:0}}
+
+  /* ---------- Home ---------- */
+  .lede{color:var(--mut);font-size:14px;line-height:1.55;margin:16px 4px 4px;max-width:640px}
+  .lede b{color:var(--tx);font-weight:600}
+  .sec-label{font-family:'Space Grotesk';font-weight:600;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin:30px 4px 12px;display:flex;align-items:center;gap:10px}
+  .sec-label::after{content:"";height:1px;flex:1;background:var(--line)}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;cursor:pointer;transition:.16s;position:relative;overflow:hidden;text-align:left}
+  .tile:hover{border-color:var(--teal-d);transform:translateY(-2px);background:var(--panel2)}
+  .tile:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+  .tile .tname{font-family:'Space Grotesk';font-weight:600;font-size:15px;margin-bottom:5px;padding-right:44px}
+  .tile .tblurb{color:var(--mut);font-size:12.5px;line-height:1.45}
+  .tile .tcount{position:absolute;top:14px;right:14px;font-family:'JetBrains Mono';font-size:11px;color:var(--teal);background:rgba(53,208,186,.1);border:1px solid rgba(53,208,186,.25);padding:2px 7px;border-radius:20px}
+  .tile .bar{height:3px;border-radius:3px;background:var(--line);margin-top:12px;overflow:hidden}
+  .tile .bar i{display:block;height:100%;background:var(--teal);width:0;transition:width .5s}
+
+  .cta-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.cta-row{grid-template-columns:1fr}}
+  @media(max-width:430px){
+    .qcard{padding:20px 16px}
+    .qtext{font-size:18px}
+    .brand h1{font-size:18px}
+    .qtext{line-height:1.32}
+    .modal-card{padding:22px 18px}
+    #qDomainChip,#fDomainChip{max-width:40vw}
+    .choice{font-size:14.5px;padding:13px 13px}
+    .cam-stage{aspect-ratio:3/4}
+  }
+  .cta{border:none;border-radius:var(--r);padding:18px 16px;cursor:pointer;text-align:left;font-family:inherit;transition:.16s;position:relative}
+  .cta:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+  .cta.primary{background:linear-gradient(150deg,#1c8b7d,#12655b);color:#eafff9}
+  .cta.primary:hover{filter:brightness(1.1)}
+  .cta.ghost{background:var(--panel);border:1px solid var(--line);color:var(--tx)}
+  .cta.ghost:hover{background:var(--panel2);border-color:var(--amber)}
+  .cta .ct{font-family:'Space Grotesk';font-weight:600;font-size:16px;display:block;margin-bottom:4px}
+  .cta .cd{font-size:12.5px;opacity:.85;line-height:1.4}
+  .cta .ci{position:absolute;top:16px;right:16px;font-size:18px;opacity:.7}
+
+  /* ---------- Quiz ---------- */
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:18px 4px 6px;gap:10px;flex-wrap:wrap}
+  .topbar>div{min-width:0}
+  #qDomainChip,#fDomainChip{max-width:46vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .back{background:none;border:1px solid var(--line);color:var(--mut);border-radius:9px;padding:8px 13px;cursor:pointer;font-family:inherit;font-size:13px;transition:.15s;display:flex;align-items:center;gap:6px;flex-shrink:0}
+  .back:hover{color:var(--tx);border-color:var(--mut)}
+  .readout{display:flex;gap:8px;flex-shrink:0}
+  .chip{font-family:'JetBrains Mono';font-size:12px;padding:6px 10px;border-radius:8px;background:var(--panel);border:1px solid var(--line);color:var(--mut)}
+  .chip b{color:var(--tx);font-weight:700}
+  .chip.good b{color:var(--green)} .chip.bad b{color:var(--crim)} .chip.fire b{color:var(--amber)}
+
+  .prog{height:5px;background:var(--panel);border-radius:5px;margin:10px 4px 0;overflow:hidden}
+  .prog i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--green));width:0;transition:width .35s}
+
+  .qcard{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px 22px;margin-top:18px}
+  .qdomain{font-family:'JetBrains Mono';font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+  .qtext{font-family:'Space Grotesk';font-weight:500;font-size:20px;line-height:1.35;margin-bottom:20px;letter-spacing:-.2px}
+  .choices{display:flex;flex-direction:column;gap:10px}
+  .choice{display:flex;align-items:flex-start;gap:13px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 15px;cursor:pointer;text-align:left;font-family:inherit;font-size:15px;color:var(--tx);transition:.14s;line-height:1.4}
+  .choice:hover:not(:disabled){border-color:var(--teal-d);background:#22303f}
+  .choice:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+  .choice:disabled{cursor:default}
+  .choice .key{font-family:'JetBrains Mono';font-weight:700;font-size:13px;width:24px;height:24px;border-radius:6px;background:var(--ink);border:1px solid var(--line);display:grid;place-items:center;flex-shrink:0;color:var(--mut);transition:.14s}
+  .choice.correct{border-color:var(--green);background:rgba(61,214,140,.12)}
+  .choice.correct .key{background:var(--green);color:#04120b;border-color:var(--green)}
+  .choice.wrong{border-color:var(--crim);background:rgba(229,72,77,.1)}
+  .choice.wrong .key{background:var(--crim);color:#fff;border-color:var(--crim)}
+
+  .explain{margin-top:16px;border-left:3px solid var(--teal);background:rgba(53,208,186,.06);border-radius:0 10px 10px 0;padding:13px 15px;font-size:14px;line-height:1.55;color:#cfe0dc;display:none}
+  .explain.show{display:block;animation:fade .25s ease}
+  .explain b{color:var(--teal);font-family:'Space Grotesk'}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  .nextbtn{margin-top:18px;width:100%;background:linear-gradient(150deg,#1c8b7d,#12655b);color:#eafff9;border:none;border-radius:12px;padding:15px;font-family:'Space Grotesk';font-weight:600;font-size:15px;cursor:pointer;display:none;transition:.15s}
+  .nextbtn.show{display:block} .nextbtn:hover{filter:brightness(1.12)}
+
+  /* ---------- Results ---------- */
+  .result{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:34px 24px;text-align:center;margin-top:24px}
+  .score-ring{width:150px;height:150px;margin:0 auto 8px;position:relative}
+  .score-ring svg{transform:rotate(-90deg)}
+  .score-ring .rtrack{stroke:var(--line)} .score-ring .rfill{stroke:var(--teal);stroke-linecap:round;transition:stroke-dashoffset 1s ease}
+  .score-ring .rnum{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+  .score-ring .rnum b{font-family:'Space Grotesk';font-weight:700;font-size:38px;display:block;line-height:1}
+  .score-ring .rnum span{font-family:'JetBrains Mono';font-size:12px;color:var(--mut)}
+  .verdict{font-family:'Space Grotesk';font-weight:600;font-size:19px;margin-top:6px}
+  .vsub{color:var(--mut);font-size:14px;margin-top:6px;line-height:1.5;max-width:440px;margin-left:auto;margin-right:auto}
+  .rstats{display:flex;justify-content:center;gap:26px;margin:22px 0 6px}
+  .rstat b{font-family:'JetBrains Mono';font-size:22px;display:block}
+  .rstat span{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:1px}
+
+  /* ---------- Flashcards ---------- */
+  .flash{perspective:1400px;margin-top:20px}
+  .fcard{position:relative;height:300px;cursor:pointer;transition:transform .5s;transform-style:preserve-3d}
+  .fcard.flip{transform:rotateY(180deg)}
+  .fface{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;border:1px solid var(--line);padding:28px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .ffront{background:var(--panel)}
+  .fback{background:var(--panel2);transform:rotateY(180deg)}
+  .fq{font-family:'Space Grotesk';font-weight:500;font-size:19px;line-height:1.4}
+  .fa .fa-ans{font-family:'Space Grotesk';font-weight:700;font-size:22px;color:var(--teal);margin-bottom:12px}
+  .fa .fa-exp{font-size:14px;color:var(--mut);line-height:1.55}
+  .ftag{font-family:'JetBrains Mono';font-size:10px;letter-spacing:1px;color:var(--dim);text-transform:uppercase;position:absolute;top:16px;left:20px}
+  .fhint{font-family:'JetBrains Mono';font-size:11px;color:var(--dim);position:absolute;bottom:16px;left:0;right:0;text-align:center}
+
+  /* ---------- Interview ---------- */
+  .iv{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:12px}
+  .iv .ivq{font-family:'Space Grotesk';font-weight:600;font-size:16px;line-height:1.4;margin-bottom:10px}
+  .iv .ivtip{color:var(--mut);font-size:13.5px;line-height:1.55;border-left:2px solid var(--amber);padding-left:12px}
+  .iv .ivtip b{color:var(--amber);font-family:'JetBrains Mono';font-size:11px;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:3px}
+
+  .navbtns{display:flex;gap:10px;margin-top:18px}
+  .navbtns button{flex:1;background:var(--panel);border:1px solid var(--line);color:var(--tx);border-radius:11px;padding:13px;font-family:'Space Grotesk';font-weight:600;font-size:14px;cursor:pointer;transition:.14s}
+  .navbtns button:hover:not(:disabled){border-color:var(--teal-d);background:var(--panel2)}
+  .navbtns button:disabled{opacity:.4;cursor:default}
+  .counter{text-align:center;font-family:'JetBrains Mono';font-size:12px;color:var(--mut);margin-top:14px}
+
+  .foot{text-align:center;color:var(--dim);font-size:11px;line-height:1.6;margin-top:40px;padding:0 20px}
+  .hidden{display:none!important}
+  .reset-link{background:none;border:none;color:var(--dim);font-size:11px;cursor:pointer;text-decoration:underline;font-family:inherit}
+
+  /* ---------- Timer states ---------- */
+  #qTimer b{color:var(--tx)}
+  #qTimer.warn{border-color:var(--amber);background:rgba(245,165,36,.1)} #qTimer.warn b{color:var(--amber)}
+  #qTimer.crit{border-color:var(--crim);background:rgba(229,72,77,.12);animation:tick 1s steps(2) infinite} #qTimer.crit b{color:var(--crim)}
+  @keyframes tick{50%{opacity:.55}}
+  .rtime{font-family:'JetBrains Mono';font-size:12px;color:var(--mut);margin-top:8px}
+
+  /* ---------- Modal ---------- */
+  .modal{position:fixed;inset:0;background:rgba(6,10,16,.72);backdrop-filter:blur(4px);display:grid;place-items:center;z-index:50;padding:20px;animation:fade .2s ease}
+  .modal-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 24px;width:100%;max-width:440px;box-shadow:0 24px 60px -20px rgba(0,0,0,.7)}
+  .modal-h{font-family:'Space Grotesk';font-weight:700;font-size:20px}
+  .modal-sub{color:var(--mut);font-size:13.5px;margin-top:4px;line-height:1.5}
+  .opt-label{font-family:'JetBrains Mono';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin:20px 0 8px}
+  .seg{display:flex;gap:6px;background:var(--ink);border:1px solid var(--line);border-radius:11px;padding:5px}
+  .seg button{flex:1;background:none;border:none;color:var(--mut);font-family:'Space Grotesk';font-weight:600;font-size:13.5px;padding:9px 8px;border-radius:8px;cursor:pointer;transition:.14s}
+  .seg button:hover{color:var(--tx)}
+  .seg button.on{background:var(--panel2);color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal-d)}
+  .pace{margin-top:16px;font-size:13px;color:var(--mut);background:rgba(53,208,186,.06);border-left:3px solid var(--teal);border-radius:0 9px 9px 0;padding:11px 14px;line-height:1.5}
+  .pace b{color:var(--teal);font-family:'JetBrains Mono'}
+  .navbtns .go{background:linear-gradient(150deg,#1c8b7d,#12655b);color:#eafff9;border:none}
+  .navbtns .go:hover{filter:brightness(1.12)}
+
+  /* ---------- Camera practice ---------- */
+  .cam-block{margin-top:22px}
+  .cam-toggle{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--tx);border-radius:12px;padding:14px;font-family:'Space Grotesk';font-weight:600;font-size:14.5px;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;gap:9px}
+  .cam-toggle:hover{border-color:var(--teal-d);background:var(--panel2)}
+  .cam-toggle.active{border-color:var(--teal);color:var(--teal)}
+  .cam-panel{margin-top:12px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}
+  .cam-stage{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:4/3;max-height:420px}
+  #camVideo{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:block}
+  .cam-clock{position:absolute;top:10px;right:12px;background:rgba(6,10,16,.7);color:var(--tx);font-size:13px;font-weight:700;padding:4px 9px;border-radius:7px;backdrop-filter:blur(3px)}
+  .rec-dot{position:absolute;top:10px;left:12px;background:var(--crim);color:#fff;font-family:'JetBrains Mono';font-weight:700;font-size:11px;letter-spacing:1px;padding:4px 9px;border-radius:7px;display:flex;align-items:center;gap:6px;animation:tick 1.2s steps(2) infinite}
+  .rec-dot::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
+  .cam-controls{display:flex;gap:10px;margin-top:12px}
+  .rec-btn{flex:1;background:var(--panel2);border:1px solid var(--crim);color:var(--crim);border-radius:11px;padding:12px;font-family:'Space Grotesk';font-weight:600;font-size:14px;cursor:pointer;transition:.14s}
+  .rec-btn:hover{background:rgba(229,72,77,.12)}
+  .rec-btn.recording{background:var(--crim);color:#fff}
+  .cam-off{background:var(--panel2);border:1px solid var(--line);color:var(--mut);border-radius:11px;padding:12px 16px;font-family:'Space Grotesk';font-weight:600;font-size:14px;cursor:pointer;transition:.14s}
+  .cam-off:hover{border-color:var(--mut);color:var(--tx)}
+  .playback{width:100%;margin-top:12px;border-radius:12px;background:#000;max-height:420px;transform:scaleX(-1)}
+  .play-row{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px}
+  .cam-note{color:var(--dim);font-size:11.5px;line-height:1.55;margin-top:12px}
+  .cam-err{margin-top:12px;background:rgba(245,165,36,.08);border-left:3px solid var(--amber);border-radius:0 9px 9px 0;padding:12px 14px;color:#e8d3ad;font-size:13px;line-height:1.55}
+
+  /* ---------- Checklist ---------- */
+  .ck-head{padding:16px 4px 4px}
+  .ck-title{font-family:'Space Grotesk';font-weight:700;font-size:19px;margin-top:6px;letter-spacing:-.2px;line-height:1.2}
+  .ck-intro{color:var(--mut);font-size:13.5px;line-height:1.55;margin-top:10px;max-width:640px}
+  .ck-group{margin-top:24px}
+  .ck-gname{font-family:'JetBrains Mono';font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);margin:0 2px 11px;display:flex;align-items:center;gap:8px;line-height:1.4}
+  .ck-group.warn .ck-gname{color:var(--amber)}
+  .ck-item{display:flex;align-items:flex-start;gap:13px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 15px;margin-bottom:9px;cursor:pointer;text-align:left;width:100%;font-family:inherit;transition:.14s}
+  .ck-item:hover{border-color:var(--teal-d);background:var(--panel2)}
+  .ck-item:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+  .ck-group.warn .ck-item{border-color:rgba(245,165,36,.32)}
+  .ck-group.warn .ck-item:hover{border-color:var(--amber)}
+  .ck-box{width:24px;height:24px;border-radius:7px;border:2px solid var(--line);flex-shrink:0;display:grid;place-items:center;transition:.14s;margin-top:1px}
+  .ck-item.done .ck-box{background:var(--teal);border-color:var(--teal)}
+  .ck-box svg{opacity:0;transition:.14s}
+  .ck-item.done .ck-box svg{opacity:1}
+  .ck-t{font-size:14.5px;line-height:1.45;color:var(--tx)}
+  .ck-item.done .ck-t{color:var(--mut);text-decoration:line-through}
+  .ck-n{font-size:12.5px;color:var(--mut);margin-top:5px;line-height:1.5}
+  .ck-group.warn .ck-n{color:#e8d3ad}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- ============ HOME ============ -->
+  <div id="home">
+    <header>
+      <div class="brand">
+        <div class="pulse-badge"><span>+</span></div>
+        <div>
+          <h1>Medic Ready</h1>
+          <div class="sub">VVC Paramedic Academy — Entrance Exam Prep</div>
+        </div>
+      </div>
+      <svg class="ecg" viewBox="0 0 1400 60" preserveAspectRatio="none">
+        <path d="M0,30 L380,30 L400,30 L410,12 L430,48 L450,30 L520,30 L540,30 L560,4 L590,56 L620,30 L1000,30 L1020,30 L1030,12 L1050,48 L1070,30 L1400,30"/>
+      </svg>
+    </header>
+
+    <p class="lede">The VVC entrance written test covers the <b>EMT National Education Standards</b> — EMT-level material, not paramedic content. Faculty set the cut score from the applicant pool, so <b>the goal is to score high, not just pass.</b> Drill by domain, run a full exam simulation, then prep for the oral panel.</p>
+
+    <div class="sec-label">Study by Domain</div>
+    <div class="grid" id="domainGrid"></div>
+
+    <div class="sec-label">Test Yourself</div>
+    <div class="cta-row">
+      <button class="cta primary" onclick="openExamSetup()">
+        <span class="ci">→</span>
+        <span class="ct">Full Exam Simulator</span>
+        <span class="cd">Mixed questions across every domain, timed or untimed, scored like the real screening.</span>
+      </button>
+      <button class="cta ghost" onclick="showFlash('all')">
+        <span class="ci">→</span>
+        <span class="ct">Flashcard Deck</span>
+        <span class="cd">Flip-card review of every concept. Tap to reveal the answer.</span>
+      </button>
+    </div>
+
+    <div class="sec-label">Oral Panel Prep</div>
+    <div class="cta-row">
+      <button class="cta ghost" onclick="showInterview()" style="grid-column:1/-1">
+        <span class="ci">→</span>
+        <span class="ct">Interview Question Coach</span>
+        <span class="cd">The oral/panel interview is scored for admission. Practice the common questions with strategy tips.</span>
+      </button>
+    </div>
+
+    <div class="sec-label">Application Prep</div>
+    <div class="cta-row">
+      <button class="cta ghost" onclick="showChecklist()" style="grid-column:1/-1">
+        <span class="ci">→</span>
+        <span class="ct">Application Packet Checklist</span>
+        <span class="cd">Track every document VVC requires — with the 30-day-dated items flagged. Your progress saves automatically.</span>
+      </button>
+    </div>
+
+    <div class="foot">
+      EMT-level review aligned to the National Education Standards. Verify all clinical actions against current AHA guidelines and your local (ICEMA) protocols and scope of practice. Not affiliated with Victor Valley College.<br><br>
+      <button class="reset-link" onclick="resetProgress()">Reset all progress</button>
+    </div>
+  </div>
+
+  <!-- ============ QUIZ ============ -->
+  <div id="quiz" class="hidden">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="back" onclick="goHome()">← Menu</button>
+        <div class="chip" id="qDomainChip">—</div>
+      </div>
+      <div class="readout">
+        <div class="chip" id="qTimer" style="display:none">⧗ <b id="qTime">--:--</b></div>
+        <div class="chip good">✓ <b id="qCorrect">0</b></div>
+        <div class="chip fire">▲ <b id="qStreak">0</b></div>
+      </div>
+    </div>
+    <div class="prog"><i id="qProg"></i></div>
+    <div class="qcard">
+      <div class="qdomain" id="qCat"></div>
+      <div class="qtext" id="qText"></div>
+      <div class="choices" id="qChoices"></div>
+      <div class="explain" id="qExplain"></div>
+      <button class="nextbtn" id="qNext" onclick="nextQ()">Next →</button>
+    </div>
+    <div class="counter" id="qCounter"></div>
+  </div>
+
+  <!-- ============ RESULTS ============ -->
+  <div id="results" class="hidden">
+    <div class="topbar"><button class="back" onclick="goHome()">← Menu</button></div>
+    <div class="result">
+      <div class="score-ring">
+        <svg width="150" height="150" viewBox="0 0 150 150">
+          <circle class="rtrack" cx="75" cy="75" r="66" fill="none" stroke-width="10"/>
+          <circle class="rfill" id="ring" cx="75" cy="75" r="66" fill="none" stroke-width="10" stroke-dasharray="414.7" stroke-dashoffset="414.7"/>
+        </svg>
+        <div class="rnum"><b id="rPct">0%</b><span id="rScore">0 / 0</span></div>
+      </div>
+      <div class="verdict" id="rVerdict"></div>
+      <div class="rtime" id="rTime"></div>
+      <div class="vsub" id="rSub"></div>
+      <div class="rstats">
+        <div class="rstat"><b class="mono" id="rRight" style="color:var(--green)">0</b><span>Correct</span></div>
+        <div class="rstat"><b class="mono" id="rWrong" style="color:var(--crim)">0</b><span>Missed</span></div>
+        <div class="rstat"><b class="mono" id="rBest" style="color:var(--amber)">0</b><span>Best Streak</span></div>
+      </div>
+      <div class="navbtns" style="max-width:420px;margin:20px auto 0">
+        <button onclick="retrySame()">Try Again</button>
+        <button onclick="goHome()">Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FLASHCARDS ============ -->
+  <div id="flash" class="hidden">
+    <div class="topbar">
+      <button class="back" onclick="goHome()">← Menu</button>
+      <div class="readout"><div class="chip" id="fDomainChip">—</div></div>
+    </div>
+    <div class="flash">
+      <div class="fcard" id="fCard" onclick="flipCard()">
+        <div class="fface ffront">
+          <div class="ftag" id="fTag"></div>
+          <div class="fq" id="fFront"></div>
+          <div class="fhint">tap to flip</div>
+        </div>
+        <div class="fface fback fa">
+          <div>
+            <div class="fa-ans" id="fAns"></div>
+            <div class="fa-exp" id="fExp"></div>
+          </div>
+          <div class="fhint">tap to flip back</div>
+        </div>
+      </div>
+    </div>
+    <div class="navbtns">
+      <button id="fPrev" onclick="flashNav(-1)">← Prev</button>
+      <button id="fNext" onclick="flashNav(1)">Next →</button>
+    </div>
+    <div class="counter" id="fCounter"></div>
+  </div>
+
+  <!-- ============ CHECKLIST ============ -->
+  <div id="checklist" class="hidden">
+    <div class="topbar">
+      <button class="back" onclick="goHome()">← Menu</button>
+      <div class="readout"><div class="chip good">✓ <b id="ckProg">0 / 0</b></div></div>
+    </div>
+    <div class="ck-head">
+      <div class="qdomain" style="color:var(--teal)">Application Packet</div>
+      <h2 class="ck-title">VVC Paramedic Academy — Application Checklist</h2>
+      <p class="ck-intro">Admission uses a cumulative point system — the written exam, your packet, and the oral interview all count. A missing or mis-dated document can sink an otherwise strong application, so work this list early.</p>
+    </div>
+    <div id="ckBody"></div>
+    <div class="foot">Requirements and deadlines change every cycle. Always confirm the current list and application window on the VVC paramedic page before submitting. Not affiliated with Victor Valley College.</div>
+  </div>
+
+  <!-- ============ EXAM SETUP MODAL ============ -->
+  <div id="examSetup" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-h">Exam Setup</div>
+      <div class="modal-sub">Build a mixed exam drawn from all 10 domains.</div>
+
+      <div class="opt-label">Number of questions</div>
+      <div class="seg" id="segCount">
+        <button data-v="25">25</button>
+        <button data-v="50" class="on">50</button>
+        <button data-v="100">100</button>
+      </div>
+
+      <div class="opt-label">Timer</div>
+      <div class="seg" id="segTimed">
+        <button data-v="1" class="on">Timed</button>
+        <button data-v="0">Untimed (practice)</button>
+      </div>
+
+      <div class="pace" id="pacePreview"></div>
+
+      <div class="navbtns" style="margin-top:20px">
+        <button onclick="closeExamSetup()">Cancel</button>
+        <button class="go" onclick="launchExam()">Start Exam →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ INTERVIEW ============ -->
+  <div id="interview" class="hidden">
+    <div class="topbar"><button class="back" onclick="goHome()">← Menu</button>
+      <div class="readout"><div class="chip">Oral Panel</div></div>
+    </div>
+    <div class="qcard" style="padding:22px">
+      <div class="qdomain">Interview Coach</div>
+      <div id="ivBody"></div>
+    </div>
+    <div class="navbtns">
+      <button id="ivPrev" onclick="ivNav(-1)">← Prev</button>
+      <button id="ivNext" onclick="ivNav(1)">Next →</button>
+    </div>
+    <div class="counter" id="ivCounter"></div>
+
+    <div class="cam-block">
+      <button id="camToggle" class="cam-toggle" onclick="toggleCam()">◉ Practice on camera</button>
+      <div id="camPanel" class="cam-panel hidden">
+        <div class="cam-stage">
+          <video id="camVideo" autoplay playsinline muted></video>
+          <div id="camClock" class="cam-clock mono">0:00</div>
+          <div id="recDot" class="rec-dot hidden">REC</div>
+        </div>
+        <div class="cam-controls">
+          <button id="recBtn" class="rec-btn" onclick="toggleRec()">● Record answer</button>
+          <button class="cam-off" onclick="stopCam()">Turn off camera</button>
+        </div>
+        <video id="playback" class="playback hidden" controls playsinline></video>
+        <div id="playRow" class="play-row hidden">
+          <span class="mono" style="color:var(--mut);font-size:12px">Review your take:</span>
+          <button class="cam-off" onclick="clearRec()">Clear recording</button>
+        </div>
+        <div class="cam-note">Live preview and any recording stay on your device — nothing is uploaded, saved, or sent anywhere. The clip is discarded when you turn off the camera or leave this screen.</div>
+        <div id="camErr" class="cam-err hidden"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// VVC Paramedic Academy Entrance Exam — EMT Review content
+// Aligned to EMT National Education Standards (NES). EMT-level.
+// ============================================================
+
+const DOMAINS = [
+  { id: "prep",    name: "A&P + Terminology", blurb: "Anatomy, physiology, medical terms, systems." },
+  { id: "airway",  name: "Airway & Breathing", blurb: "Airway management, ventilation, oxygenation." },
+  { id: "assess",  name: "Patient Assessment", blurb: "Scene size-up, primary and secondary survey." },
+  { id: "vitals",  name: "Vital Signs", blurb: "Normal ranges and recognizing abnormal vitals." },
+  { id: "cardio",  name: "Cardiology & Resus", blurb: "ACS, cardiac arrest, CPR, AED." },
+  { id: "medical", name: "Medical & Tox", blurb: "Medical emergencies, poisoning, behavioral." },
+  { id: "environ", name: "Environmental", blurb: "Drowning, heat/cold, bites, electrical, dive." },
+  { id: "trauma",  name: "Trauma & Shock", blurb: "Bleeding, shock, injuries, MOI." },
+  { id: "special", name: "OB / Peds / Special", blurb: "Obstetrics, pediatrics, geriatrics." },
+  { id: "ops",     name: "EMS Operations", blurb: "Safety, MCI, ambulance, extrication." },
+  { id: "comm",    name: "Comms & Documentation", blurb: "Reports, radio, PCR charting, interviewing." },
+  { id: "pharm",   name: "Pharmacology", blurb: "EMT-scope meds, routes, the 6 rights." },
+  { id: "math",    name: "Med Math", blurb: "Conversions, dosing, drip basics." },
+];
+
+// answer = index of correct choice (0-based)
+const QUESTIONS = [
+  // ---------------- A&P + TERMINOLOGY ----------------
+  { d:"prep", q:"The term used to describe the front surface of the body in anatomical position is:", c:["Posterior","Anterior","Medial","Distal"], a:1, e:"Anterior = front; posterior = back. Anatomical position = standing, palms forward." },
+  { d:"prep", q:"A structure closer to the point of attachment to the trunk is described as:", c:["Distal","Proximal","Lateral","Superficial"], a:1, e:"Proximal = nearer the trunk/point of origin; distal = farther away (the wrist is distal to the elbow)." },
+  { d:"prep", q:"The largest artery in the body, which carries oxygenated blood from the left ventricle, is the:", c:["Vena cava","Pulmonary artery","Aorta","Carotid"], a:2, e:"The aorta is the largest artery. The pulmonary artery is the exception that carries deoxygenated blood." },
+  { d:"prep", q:"Which chamber of the heart pumps oxygenated blood to the systemic circulation?", c:["Right atrium","Right ventricle","Left atrium","Left ventricle"], a:3, e:"The left ventricle is the most muscular chamber; it drives blood to the body via the aorta." },
+  { d:"prep", q:"The medical term 'tachycardia' refers to:", c:["A slow heart rate","A fast heart rate","Difficulty breathing","Low blood pressure"], a:1, e:"Tachy- = fast, -cardia = heart. Brady- = slow. Tachypnea = fast breathing." },
+  { d:"prep", q:"The diaphragm is innervated primarily by the:", c:["Vagus nerve","Phrenic nerve","Sciatic nerve","Median nerve"], a:1, e:"The phrenic nerve (C3–C5) drives the diaphragm. 'C3-4-5 keep the diaphragm alive.'" },
+  { d:"prep", q:"Which of the following describes the anatomical position 'inferior'?", c:["Toward the head","Toward the feet","Toward the midline","Away from the midline"], a:1, e:"Superior = toward head; inferior = toward feet. Medial = toward midline; lateral = away." },
+  { d:"prep", q:"The exchange of oxygen and carbon dioxide occurs in the:", c:["Bronchi","Trachea","Alveoli","Pharynx"], a:2, e:"Gas exchange happens at the alveoli, where capillaries surround the air sacs." },
+  { d:"prep", q:"The main function of red blood cells is to:", c:["Fight infection","Form clots","Carry oxygen","Produce antibodies"], a:2, e:"RBCs carry oxygen via hemoglobin. White cells fight infection; platelets clot." },
+  { d:"prep", q:"The upper chambers of the heart are called the:", c:["Ventricles","Atria","Valves","Septa"], a:1, e:"Atria (upper) receive blood; ventricles (lower) pump it out." },
+  { d:"prep", q:"'Hypoperfusion' is another term for:", c:["Fever","Shock","Seizure","Stroke"], a:1, e:"Hypoperfusion = inadequate tissue perfusion = shock." },
+  { d:"prep", q:"The skin's primary functions include all of the following EXCEPT:", c:["Protection from infection","Temperature regulation","Oxygenating the blood","Sensation"], a:2, e:"Skin protects, regulates temperature, and senses — but does not oxygenate blood (that's the lungs)." },
+
+  // ---------------- AIRWAY & BREATHING ----------------
+  { d:"airway", q:"The preferred method to open the airway of a patient with suspected spinal injury is the:", c:["Head-tilt/chin-lift","Jaw-thrust maneuver","Sniffing position","Recovery position"], a:1, e:"Jaw-thrust maintains neutral spinal alignment while opening the airway." },
+  { d:"airway", q:"An oropharyngeal airway (OPA) should NOT be used in a patient who:", c:["Is unresponsive","Has no gag reflex","Has an intact gag reflex","Is apneic"], a:2, e:"An OPA in a patient with a gag reflex can cause vomiting/aspiration. Use an NPA instead." },
+  { d:"airway", q:"You size an OPA by measuring from the:", c:["Nose to the earlobe","Corner of the mouth to the earlobe","Chin to the sternum","Lips to the chin"], a:1, e:"OPA: corner of mouth to earlobe (or center of mouth to angle of jaw). NPA: nostril to earlobe." },
+  { d:"airway", q:"The normal respiratory rate for an adult at rest is:", c:["8–10/min","12–20/min","20–30/min","30–40/min"], a:1, e:"Adult 12–20; child 15–30; infant 25–50 (varies slightly by reference)." },
+  { d:"airway", q:"A patient breathing at 6 times per minute with shallow effort should be managed with:", c:["A non-rebreather mask at 15 LPM","Positive-pressure ventilation with a BVM","A nasal cannula at 4 LPM","Blow-by oxygen"], a:1, e:"Inadequate rate/depth (hypoventilation) requires assisted ventilation with a BVM, not just passive O2." },
+  { d:"airway", q:"A non-rebreather mask should be run at approximately:", c:["2–4 LPM","6 LPM","10–15 LPM","1–2 LPM"], a:2, e:"NRB: 10–15 LPM to keep the reservoir bag inflated; delivers up to ~90% O2." },
+  { d:"airway", q:"Gurgling respirations most likely indicate a need to:", c:["Increase oxygen flow","Suction the airway","Insert an OPA","Apply a CPAP mask"], a:1, e:"Gurgling = fluid/secretions in the airway → suction immediately." },
+  { d:"airway", q:"Suctioning of an adult should be limited to no more than:", c:["5 seconds","10 seconds","15 seconds","30 seconds"], a:2, e:"Limit adult suctioning to ~15 seconds (less for infants/children) to avoid hypoxia." },
+  { d:"airway", q:"A patient with a stoma who needs ventilation should be ventilated:", c:["Through the mouth only","Through the nose only","Directly through the stoma","Not at all"], a:2, e:"For a laryngectomy/stoma patient, ventilate through the stoma; seal mouth/nose if air escapes." },
+  { d:"airway", q:"The proper rate to ventilate an apneic adult with a pulse is one breath every:", c:["3 seconds","5–6 seconds","8 seconds","10 seconds"], a:1, e:"Adult rescue breathing: 1 breath every 5–6 seconds (~10–12/min). Child/infant: every 2–3 seconds." },
+  { d:"airway", q:"Signs of adequate BVM ventilation include:", c:["Gastric distention","Visible chest rise","Decreasing SpO2","Cyanosis"], a:1, e:"Chest rise with each squeeze indicates effective ventilation. Gastric distention suggests over-ventilation." },
+
+  // ---------------- PATIENT ASSESSMENT ----------------
+  { d:"assess", q:"The FIRST priority upon arriving at any scene is:", c:["Patient's airway","Scene safety","Bleeding control","Baseline vitals"], a:1, e:"Scene safety (and BSI/PPE) comes first — you can't help anyone if you become a patient." },
+  { d:"assess", q:"During the primary assessment, after ensuring a patent airway you evaluate:", c:["Pupils","Breathing","Skin color","History"], a:1, e:"Primary assessment follows ABC: Airway, Breathing, Circulation. Breathing comes after airway." },
+  { d:"assess", q:"The AVPU scale is used to assess:", c:["Pain severity","Level of consciousness","Pupil response","Blood pressure"], a:1, e:"AVPU = Alert, Verbal, Painful, Unresponsive — a quick mental status/LOC check." },
+  { d:"assess", q:"A patient who responds only when you pinch their shoulder is classified on AVPU as:", c:["Alert","Verbal","Painful","Unresponsive"], a:2, e:"Responds to painful stimulus only = 'P'." },
+  { d:"assess", q:"'OPQRST' is a memory aid used primarily to assess:", c:["Mechanism of injury","The chief complaint / pain history","Vital signs","Scene hazards"], a:1, e:"OPQRST: Onset, Provocation, Quality, Region/Radiation, Severity, Time — for pain/symptom history." },
+  { d:"assess", q:"'SAMPLE' history includes all of the following EXCEPT:", c:["Allergies","Medications","Systolic pressure","Last oral intake"], a:2, e:"SAMPLE = Signs/Symptoms, Allergies, Medications, Past history, Last oral intake, Events." },
+  { d:"assess", q:"Capillary refill is considered a reliable perfusion indicator primarily in:", c:["Elderly patients","Cold environments","Children under 6","Patients in shock only"], a:2, e:"Cap refill >2 seconds is most reliable in young children; it's affected by cold and age in adults." },
+  { d:"assess", q:"A patient with a significant mechanism of injury and altered mental status should receive a:", c:["Focused exam of the injury only","Rapid full-body (head-to-toe) trauma assessment","Delayed assessment after transport","Detailed exam only on scene"], a:1, e:"High-risk MOI or altered patients get a rapid full-body assessment, not just a focused exam." },
+  { d:"vitals", q:"Normal adult systolic blood pressure is generally considered to be:", c:["70–90 mmHg","90–140 mmHg","150–180 mmHg","Below 60 mmHg"], a:1, e:"A rough normal adult systolic range is ~90–140 mmHg; hypotension is often defined as <90 systolic." },
+  { d:"assess", q:"Reassessment of an unstable patient should be performed at least every:", c:["5 minutes","15 minutes","30 minutes","On arrival only"], a:0, e:"Unstable patients: reassess every 5 minutes. Stable patients: every 15 minutes." },
+  { d:"assess", q:"Skin that is pale, cool, and diaphoretic most commonly indicates:", c:["Fever","Poor perfusion / shock","Adequate circulation","Heat stroke"], a:1, e:"Pale, cool, clammy skin reflects peripheral vasoconstriction — a classic shock sign." },
+
+  // ---------------- CARDIOLOGY & RESUS ----------------
+  { d:"cardio", q:"The recommended compression rate for adult CPR is:", c:["80–100/min","100–120/min","120–140/min","60–80/min"], a:1, e:"High-quality CPR: 100–120 compressions/min, depth at least 2 inches, full recoil." },
+  { d:"cardio", q:"The correct compression depth for an adult is at least:", c:["1 inch","1.5 inches","2 inches","3 inches"], a:2, e:"Adult: at least 2 inches (5 cm), not exceeding 2.4 inches. Child/infant: ~1/3 chest depth." },
+  { d:"cardio", q:"The compression-to-ventilation ratio for one-rescuer adult CPR is:", c:["15:2","30:2","5:1","10:2"], a:1, e:"30:2 for single-rescuer adult CPR. Two-rescuer child/infant CPR uses 15:2." },
+  { d:"cardio", q:"When an AED advises 'shock', you should:", c:["Continue compressions during the shock","Ensure everyone is clear, then deliver the shock","Check a pulse before shocking","Remove the pads first"], a:1, e:"Confirm no one is touching the patient ('I'm clear, you're clear, everyone's clear'), then shock." },
+  { d:"cardio", q:"Classic presentation of a myocardial infarction includes:", c:["Sharp pain relieved by movement","Crushing substernal chest pressure, possibly radiating to the arm/jaw","Pain only on deep inspiration","Pain isolated to the abdomen"], a:1, e:"MI: pressure/tightness, often radiating to arm, jaw, or back, with diaphoresis, nausea, dyspnea." },
+  { d:"cardio", q:"Before assisting a patient with their prescribed nitroglycerin, you must check:", c:["Their temperature","Their blood pressure","Their pupils","Their blood glucose"], a:1, e:"NTG lowers BP; do not assist if systolic is below protocol threshold (often <100–120) or if ED drugs (sildenafil) were taken recently." },
+  { d:"cardio", q:"After each AED shock, you should immediately:", c:["Check a pulse for 30 seconds","Resume chest compressions","Analyze the rhythm again","Give two ventilations"], a:1, e:"Resume compressions immediately after a shock; the AED will re-analyze after ~2 minutes." },
+  { d:"cardio", q:"Minimizing interruptions in chest compressions is important because interruptions:", c:["Increase oxygen delivery","Decrease coronary perfusion pressure","Improve AED accuracy","Have no effect"], a:1, e:"Pauses drop coronary perfusion pressure; it takes several compressions to rebuild it." },
+  { d:"cardio", q:"The term for chest pain that occurs with exertion and is relieved by rest is:", c:["Myocardial infarction","Angina pectoris","Pericarditis","Aortic aneurysm"], a:1, e:"Stable angina is exertional and rest-relieved; MI pain persists and isn't relieved by rest." },
+  { d:"cardio", q:"For a choking adult who becomes unresponsive, you should:", c:["Continue abdominal thrusts standing","Begin CPR, checking the mouth for the object before ventilations","Perform a blind finger sweep","Wait for ALS"], a:1, e:"Unresponsive choking → lower to ground, start CPR; look in the mouth before breaths and remove visible objects." },
+
+  // ---------------- MEDICAL & TOX ----------------
+  { d:"medical", q:"The 'FAST' mnemonic for stroke assessment stands for:", c:["Face, Arms, Speech, Time","Fever, Ache, Sweat, Tremor","Focus, Airway, Skin, Temp","Fall, Alert, Seizure, Transport"], a:0, e:"FAST: Facial droop, Arm drift, Speech difficulty, Time (note onset, transport fast)." },
+  { d:"medical", q:"A diabetic patient who is confused, pale, and diaphoretic with a rapid pulse most likely has:", c:["Hyperglycemia","Hypoglycemia","A stroke","Heat exhaustion"], a:1, e:"Rapid onset, pale/diaphoretic/confused points to hypoglycemia (low blood sugar) — give oral glucose if able to swallow." },
+  { d:"medical", q:"Oral glucose is contraindicated in a patient who is:", c:["Anxious","Unable to swallow / unresponsive","Diaphoretic","Tachycardic"], a:1, e:"Never give oral glucose to someone who can't protect their airway — aspiration risk." },
+  { d:"medical", q:"The most important treatment for a patient with an altered mental status is:", c:["Rapid transport only","Airway management","Blood glucose check","Restraint"], a:1, e:"Airway management is priority in any altered patient; they may lose the ability to protect it." },
+  { d:"medical", q:"Signs of a severe allergic reaction (anaphylaxis) include:", c:["Localized rash only","Hives with hypotension and difficulty breathing","Mild itching","Sneezing alone"], a:1, e:"Anaphylaxis = systemic: widespread hives, airway swelling, wheezing, hypotension — assist with epinephrine auto-injector." },
+  { d:"medical", q:"The primary danger with a generalized (tonic-clonic) seizure that lasts over 5 minutes or repeats is:", c:["Fever","Status epilepticus with hypoxia","Dehydration only","Hyperglycemia"], a:1, e:"Prolonged/repeated seizing (status epilepticus) threatens the airway and causes hypoxia — a true emergency." },
+  { d:"medical", q:"For most poisoning/overdose patients, the EMT's priority is:", c:["Inducing vomiting","Supportive care: airway, breathing, circulation","Giving activated charcoal routinely","Neutralizing the poison"], a:1, e:"EMT tox care is largely supportive (ABCs) plus contacting poison control/medical direction; routine emesis is not recommended." },
+  { d:"medical", q:"A patient found in a running car in a closed garage with headache and confusion likely suffers from:", c:["Cyanide poisoning","Carbon monoxide poisoning","Opioid overdose","Heat stroke"], a:1, e:"CO poisoning: headache, confusion, nausea; pulse oximetry may read falsely normal. High-flow O2 and rapid removal." },
+  { d:"medical", q:"A patient having an asthma attack with audible wheezing should be assisted with:", c:["An epinephrine auto-injector","Their prescribed metered-dose inhaler (per protocol)","Oral glucose","Aspirin"], a:1, e:"EMTs may assist with a patient's prescribed inhaler (e.g., albuterol) for bronchospasm, per local protocol." },
+  { d:"medical", q:"When restraining a behavioral emergency patient, you should:", c:["Restrain them prone (face down)","Use the minimum force needed and monitor the airway","Never involve law enforcement","Restrain alone quickly"], a:1, e:"Avoid prone/positional asphyxia, use adequate personnel, minimum necessary force, and monitor continuously." },
+
+  // ---------------- TRAUMA & SHOCK ----------------
+  { d:"trauma", q:"The FIRST step to control severe external bleeding is:", c:["Apply a tourniquet","Apply direct pressure","Elevate the limb","Apply a pressure dressing"], a:1, e:"Direct pressure first; escalate to a tourniquet for life-threatening extremity hemorrhage not controlled by pressure." },
+  { d:"trauma", q:"A tourniquet should be applied:", c:["Directly over a joint","2–3 inches proximal to the wound, not over a joint","As loosely as possible","Only after 30 minutes of pressure"], a:1, e:"Place proximal to the wound (not over a joint), tighten until bleeding stops, and note the time applied." },
+  { d:"trauma", q:"The earliest sign of compensated shock is often:", c:["Falling blood pressure","Increased heart rate (tachycardia)","Unconsciousness","Bradycardia"], a:1, e:"The body compensates first with tachycardia and vasoconstriction; a falling BP is a late, ominous sign." },
+  { d:"trauma", q:"Bright red blood spurting from a wound indicates:", c:["Venous bleeding","Capillary bleeding","Arterial bleeding","Internal bleeding"], a:2, e:"Arterial: bright red, spurting with pulse. Venous: darker, steady flow. Capillary: oozing." },
+  { d:"trauma", q:"For an impaled object in the chest, you should:", c:["Remove it and control bleeding","Stabilize it in place and transport","Push it in further","Cut it flush with the skin"], a:1, e:"Do not remove impaled objects (except when they block the airway or interfere with CPR); stabilize in place." },
+  { d:"trauma", q:"An open ('sucking') chest wound should initially be covered with:", c:["A dry sterile gauze taped on 4 sides","An occlusive dressing sealed appropriately per protocol","No dressing","A tourniquet"], a:1, e:"Use an occlusive dressing (often vented / taped on three sides) to prevent air entry while allowing escape." },
+  { d:"trauma", q:"The primary concern with a burn to the face and neck is:", c:["Cosmetic scarring","Airway compromise from swelling","Infection","Fluid loss only"], a:1, e:"Facial/inhalation burns threaten the airway — anticipate swelling and monitor closely." },
+  { d:"trauma", q:"Using the Rule of Nines, an adult's entire anterior torso (chest + abdomen) represents:", c:["9%","18%","27%","36%"], a:1, e:"Anterior trunk = 18% (chest 9% + abdomen 9%). Each arm 9%, each leg 18%, head 9%, genitals 1%." },
+  { d:"trauma", q:"A patient with a suspected pelvic fracture and signs of shock most likely has:", c:["Minor injury","Significant internal bleeding","A muscle strain","Dehydration"], a:1, e:"The pelvis is highly vascular; fractures can cause massive internal hemorrhage — treat for shock and transport rapidly." },
+  { d:"trauma", q:"To treat a patient for shock, you should:", c:["Have them sit fully upright","Keep them warm and supine, and transport promptly","Give food and water","Apply cold packs to the trunk"], a:1, e:"Position supine, maintain body heat, high-flow oxygen as indicated, and rapid transport for definitive care." },
+
+  // ---------------- OB / PEDS / SPECIAL ----------------
+  { d:"special", q:"During a normal delivery, after the head is delivered you should:", c:["Pull on the head","Suction as needed and check for a nuchal cord","Push the head back","Clamp the cord immediately"], a:1, e:"Support the head, check for a cord around the neck, suction mouth then nose if needed, and guide (never pull) delivery." },
+  { d:"special", q:"'Crowning' during labor means:", c:["Contractions have stopped","The baby's head is visible at the vaginal opening","The placenta has delivered","The water has not broken"], a:1, e:"Crowning indicates imminent delivery — prepare to deliver on scene." },
+  { d:"special", q:"A pregnant patient in the third trimester who must lie down should be positioned:", c:["Flat on her back","Tilted to the left side","Prone","Sitting fully upright only"], a:1, e:"Left-lateral tilt prevents the uterus from compressing the vena cava (supine hypotensive syndrome)." },
+  { d:"special", q:"The most common cause of cardiac arrest in infants and children is:", c:["Primary cardiac problem","Respiratory failure / hypoxia","Trauma","Poisoning"], a:1, e:"Pediatric arrests are usually respiratory in origin — aggressive airway/oxygenation is key." },
+  { d:"special", q:"A useful first tool for forming a general impression of a pediatric patient is the:", c:["Glasgow Coma Scale","Pediatric Assessment Triangle","Rule of Nines","APGAR score"], a:1, e:"The PAT assesses Appearance, Work of Breathing, and Circulation to the skin — a from-the-doorway impression." },
+  { d:"special", q:"When assessing a newborn, the APGAR score evaluates all EXCEPT:", c:["Heart rate","Respiratory effort","Blood glucose","Muscle tone"], a:2, e:"APGAR: Appearance, Pulse, Grimace, Activity (tone), Respirations — scored at 1 and 5 minutes." },
+  { d:"special", q:"Geriatric patients may not show typical signs of illness because:", c:["They always have higher pain tolerance","Aging blunts compensatory responses and symptoms","They are always on oxygen","They cannot communicate"], a:1, e:"Diminished reserves and altered sensation can mask serious illness (e.g., silent MI) in older adults." },
+  { d:"special", q:"A key sign of possible child abuse is:", c:["A single bruise on the shin","Injuries inconsistent with the reported mechanism","A common cold","Crying during exam"], a:1, e:"Injuries that don't match the history, in various healing stages, or in unusual patterns are red flags — document objectively and report." },
+
+  // ---------------- EMS OPERATIONS ----------------
+  { d:"ops", q:"During a mass-casualty incident using START triage, a patient who is not breathing after you open the airway is tagged:", c:["Green (minor)","Yellow (delayed)","Red (immediate)","Black (deceased)"], a:3, e:"In START, if repositioning the airway does not restore breathing, the patient is tagged black (deceased/expectant)." },
+  { d:"ops", q:"The FIRST step of the START triage system for walking patients is to:", c:["Check pulses","Ask everyone who can walk to move to a designated area","Assess respirations","Apply tourniquets"], a:1, e:"START starts by directing the walking wounded ('walk to me') to a green area, quickly identifying the minor category." },
+  { d:"ops", q:"When approaching a vehicle collision, you should park the ambulance:", c:["As close as possible to the wreck","Uphill/upwind and a safe distance, using it as a barrier","In the traffic lane facing traffic","Behind cover only"], a:1, e:"Park to protect the scene (fend-off position), ideally uphill/upwind of hazards, with warning lights on." },
+  { d:"ops", q:"The incident management system used to organize responders at emergencies is the:", c:["HIPAA","ICS (Incident Command System)","OSHA","EMTALA"], a:1, e:"ICS/NIMS provides a standardized command structure for coordinating multi-agency responses." },
+  { d:"ops", q:"'Standard precautions' (BSI) assume that:", c:["Only known-infected patients are contagious","All blood and body fluids are potentially infectious","Gloves alone are always enough","PPE is optional indoors"], a:1, e:"Treat every patient's blood/body fluids as potentially infectious; use appropriate PPE every time." },
+  { d:"ops", q:"During extrication, the EMT's PRIMARY responsibility is:", c:["Operating the hydraulic tools","Patient care and protection during the rescue","Directing traffic","Documenting the scene"], a:1, e:"The EMT focuses on patient care/protection while specialized rescuers handle the mechanical extrication." },
+  { d:"ops", q:"'Implied consent' applies to a patient who is:", c:["A competent adult refusing care","Unresponsive and unable to consent","A minor with a parent present","Demanding transport"], a:1, e:"Implied consent assumes a reasonable person who is unconscious/incapacitated would want life-saving care." },
+  { d:"ops", q:"A competent adult patient has the right to:", c:["Never be treated","Refuse care after being informed of the risks","Only refuse if a doctor is present","Be transported against their will"], a:1, e:"Competent adults may refuse care; document the informed refusal, risks explained, and encourage transport." },
+
+  // ---------------- PHARMACOLOGY ----------------
+  { d:"pharm", q:"The 'six rights' of medication administration include right patient, right medication, right dose, right route, right time, and right:", c:["Color","Documentation","Temperature","Manufacturer"], a:1, e:"Right documentation completes the six rights — record what, when, dose, route, and response." },
+  { d:"pharm", q:"Aspirin is given in suspected cardiac chest pain because it:", c:["Relieves pain","Inhibits platelet aggregation","Raises blood pressure","Dilates the airway"], a:1, e:"Aspirin's antiplatelet effect reduces clot growth in ACS. Typical assist dose is 162–324 mg chewed, per protocol." },
+  { d:"pharm", q:"The route of an epinephrine auto-injector (EpiPen) is:", c:["Intravenous","Intramuscular","Oral","Subcutaneous into the abdomen"], a:1, e:"Auto-injectors deliver epinephrine intramuscularly, typically into the lateral thigh (vastus lateralis)." },
+  { d:"pharm", q:"Nitroglycerin is administered by which route when assisting a cardiac patient?", c:["Intramuscular","Sublingual","Rectal","Inhaled"], a:1, e:"NTG is placed sublingually (under the tongue) for rapid mucosal absorption." },
+  { d:"pharm", q:"Naloxone (Narcan) is used to reverse:", c:["Alcohol intoxication","Opioid overdose","Aspirin overdose","Anaphylaxis"], a:1, e:"Naloxone is an opioid antagonist; it reverses respiratory depression from opioids. It does not reverse other drugs." },
+  { d:"pharm", q:"Activated charcoal works by:", c:["Inducing vomiting","Adsorbing certain ingested toxins in the GI tract","Neutralizing stomach acid","Coating the airway"], a:1, e:"Charcoal binds (adsorbs) some ingested poisons; it's given only under medical direction and not for all ingestions." },
+  { d:"pharm", q:"A 'contraindication' for a medication means:", c:["A reason the drug should be given","A reason the drug should NOT be given","The correct dose","The expected effect"], a:1, e:"A contraindication is a specific situation in which a drug should be withheld to avoid harm." },
+  { d:"pharm", q:"Oral glucose is used to treat:", c:["Hyperglycemia","Hypoglycemia","Chest pain","Seizures"], a:1, e:"Oral glucose raises blood sugar in a conscious hypoglycemic patient who can swallow." },
+  { d:"pharm", q:"Oxygen is considered a drug because it:", c:["Has no side effects","Has indications, doses, and possible adverse effects","Can never be overdosed","Requires no order"], a:1, e:"Oxygen is a medication with indications and cautions — titrate to need rather than giving max flow reflexively." },
+
+  // ---------------- MED MATH ----------------
+  { d:"math", q:"Convert 2 kilograms to grams:", c:["20 g","200 g","2,000 g","20,000 g"], a:2, e:"1 kg = 1,000 g, so 2 kg = 2,000 g. Move the decimal 3 places right." },
+  { d:"math", q:"A patient weighs 176 pounds. What is their approximate weight in kilograms? (1 kg ≈ 2.2 lb)", c:["80 kg","88 kg","70 kg","352 kg"], a:0, e:"176 ÷ 2.2 = 80 kg. To go lb→kg, divide by 2.2." },
+  { d:"math", q:"Convert 0.5 grams to milligrams:", c:["5 mg","50 mg","500 mg","5,000 mg"], a:2, e:"1 g = 1,000 mg, so 0.5 g = 500 mg." },
+  { d:"math", q:"How many milliliters are in 2 liters?", c:["200 mL","2,000 mL","20 mL","20,000 mL"], a:1, e:"1 L = 1,000 mL, so 2 L = 2,000 mL." },
+  { d:"math", q:"A medication is dosed at 0.1 mg/kg. For a 50 kg patient, the dose is:", c:["0.5 mg","5 mg","50 mg","1 mg"], a:1, e:"0.1 mg × 50 kg = 5 mg. Multiply the per-kg dose by the weight in kg." },
+  { d:"math", q:"You have a vial of 10 mg/mL. To give 5 mg, you draw up:", c:["0.5 mL","1 mL","5 mL","2 mL"], a:0, e:"Desired ÷ concentration = 5 mg ÷ 10 mg/mL = 0.5 mL." },
+  { d:"math", q:"Convert 1,500 milligrams to grams:", c:["0.15 g","1.5 g","15 g","150 g"], a:1, e:"1,000 mg = 1 g, so 1,500 mg = 1.5 g. Move the decimal 3 places left." },
+  { d:"math", q:"A child weighs 44 lb. In kilograms, that is about:", c:["20 kg","22 kg","44 kg","10 kg"], a:0, e:"44 ÷ 2.2 = 20 kg." },
+  { d:"math", q:"An IV is running and you need to know: 250 mL delivered over how many minutes gives 50 mL every 10 minutes?", c:["25 min","50 min","30 min","10 min"], a:1, e:"At 50 mL per 10 min = 5 mL/min. 250 mL ÷ 5 mL/min = 50 minutes." },
+  { d:"math", q:"You must give 300 mg from a 100 mg/mL vial. How many mL?", c:["1 mL","2 mL","3 mL","0.3 mL"], a:2, e:"300 mg ÷ 100 mg/mL = 3 mL." },
+  { d:"math", q:"Convert a body temperature of 37°C to Fahrenheit. (°F = °C × 9/5 + 32)", c:["96.8°F","98.6°F","100.4°F","94.2°F"], a:1, e:"37 × 9/5 = 66.6, + 32 = 98.6°F — normal body temperature." },
+  { d:"math", q:"A dose is 15 mg/kg for a 60 kg patient. Total dose?", c:["90 mg","900 mg","150 mg","75 mg"], a:1, e:"15 mg × 60 kg = 900 mg." },
+];
+
+// -------- Interview / oral panel prep (not scored quiz) --------
+const INTERVIEW = [
+  { q:"Why do you want to become a paramedic?", tip:"Connect it to patient care and your experience as an EMT. Be specific — a call or pattern that pushed you toward ALS. Avoid pay/schedule as the lead reason." },
+  { q:"What do you know about the demands of this academy?", tip:"Show you've researched it: didactic + clinical + field internship, high academic load, ~80% passing standard to advance between courses, months-long commitment. Signal you've arranged support at work/home." },
+  { q:"Describe a difficult call and how you handled it.", tip:"Use a structure: situation, your actions, outcome, what you learned. Emphasize teamwork, protocol adherence, and composure under stress." },
+  { q:"How do you handle stress and stay organized under pressure?", tip:"Give a concrete system (checklists, prioritization, ABCs mindset). Tie it to how you'll manage academy workload plus shift work." },
+  { q:"What are your strengths and weaknesses?", tip:"Pick a real weakness with an active plan to improve it. Strengths should map to what a good medic needs: assessment, communication, calm, reliability." },
+  { q:"How would you handle a disagreement with a partner or preceptor?", tip:"Show professionalism: patient safety first, respectful communication, chain of command, willingness to learn. Never badmouth past coworkers." },
+  { q:"Where do you see yourself in five years?", tip:"Show commitment to the profession and continued growth — field medic, then maybe FTO, CCP, or specialty. Keep it realistic and tied to service." },
+  { q:"Why should we choose you over other applicants?", tip:"Lead with reliability, work ethic, coachability, and your EMT foundation. Give evidence, not adjectives." },
+  { q:"Tell us about yourself.", tip:"Give a 60–90 second professional snapshot, not your life story: your EMS background, what drew you to paramedicine, and one thing that sets you apart. End by tying it to why you're here." },
+  { q:"Why this program specifically?", tip:"Show you researched VVC — CoAEMSP/CAAHEP accreditation, the simulation program, the traditional vs. hybrid tracks, and the ICEMA region you'd work in. Connect the program's strengths to your goals." },
+  { q:"This academy is demanding with a high washout rate. What makes you confident you'll finish?", tip:"Acknowledge the 80% advancement standard head-on. Point to your study system, your support at home and work, and concrete evidence you've finished hard things before." },
+  { q:"How do you study and learn best?", tip:"Name a real method — active recall, practice questions, spaced repetition — and acknowledge the volume of A&P and pharmacology. Show you already have a plan for balancing coursework with shift work." },
+  { q:"What do you do on a call when you don't know something or hit the edge of your training?", tip:"Honesty first: fall back on protocols and scope, ask your partner, and contact medical direction. The wrong answer is guessing on patient care. Show you know your limits." },
+  { q:"Describe a time you received difficult feedback. How did you respond?", tip:"Use situation–action–outcome. Show you listened without getting defensive, made a specific change, and improved. Coachability is what panels are screening for." },
+  { q:"Tell us about a mistake you made and what you learned.", tip:"Pick a genuine one, own it without blaming others, and explain the corrective action you took. Refusing to name a real mistake reads as a lack of self-awareness." },
+  { q:"How do you handle a hostile or uncooperative patient or family member?", tip:"Lead with scene safety, then de-escalation: calm tone, empathy, clear communication, and involving law enforcement when needed. Keep it patient-centered and professional." },
+  { q:"A paramedic or nurse tells you to do something outside your scope. What do you do?", tip:"Patient safety and scope come first. Respectfully decline what's outside your scope, state why, and escalate appropriately. Show you can push back professionally without making it personal." },
+  { q:"What does professionalism mean to you in EMS?", tip:"Reliability, appearance, patient confidentiality (HIPAA), respect for patients and crew, and accountability. Note that you represent your department on every call." },
+  { q:"Give an example of when you went above and beyond for a patient or your team.", tip:"Tell one specific story with a clear action and impact. Show initiative and follow-through rather than listing generic qualities." },
+  { q:"How do you handle criticism of your patient care, especially in front of others?", tip:"Stay composed, listen, and don't get defensive in the moment. Focus on the patient first, then follow up privately if needed. Show emotional control under pressure." },
+  { q:"How do you take care of yourself given the stress of this work?", tip:"Name healthy coping — sleep, fitness, peer support — and show you recognize burnout and critical-incident stress. Panels want people who last, not people who burn out." },
+  { q:"What's a challenge facing EMS today, or where do you see the profession going?", tip:"Show you follow the field: community paramedicine, the volume of behavioral-health calls, staffing and retention, or evolving protocols. Stay balanced and informed, not political." },
+  { q:"Do you have any questions for us?", tip:"Always have two or three ready. Ask about clinical rotations, what makes students succeed, or expectations for the first module. Thoughtful questions signal genuine interest; 'no' signals the opposite." },
+];
+
+// ============================================================
+// EXPANSION BANK — additional EMT-level questions (NES aligned)
+// Merged into QUESTIONS at build time.
+// ============================================================
+const QUESTIONS_EXTRA = [
+
+  // ---------------- A&P + TERMINOLOGY (+14) ----------------
+  { d:"prep", q:"The plane that divides the body into left and right halves is the:", c:["Transverse plane","Sagittal plane","Frontal plane","Coronal plane"], a:1, e:"The midsagittal plane divides the body into equal left and right halves. Transverse divides top/bottom; frontal (coronal) divides front/back." },
+  { d:"prep", q:"The medical prefix 'brady-' means:", c:["Fast","Slow","Painful","Absent"], a:1, e:"Brady- = slow (bradycardia, bradypnea). Tachy- = fast." },
+  { d:"prep", q:"Which body cavity contains the heart and lungs?", c:["Abdominal cavity","Pelvic cavity","Thoracic cavity","Cranial cavity"], a:2, e:"The thoracic (chest) cavity houses the heart, lungs, and great vessels, protected by the rib cage." },
+  { d:"prep", q:"The kneecap is anatomically referred to as the:", c:["Patella","Tibia","Fibula","Femur"], a:0, e:"The patella is the kneecap. The femur is the thigh bone; tibia/fibula are the lower leg." },
+  { d:"prep", q:"The suffix '-itis' means:", c:["Removal of","Inflammation","Enlargement","Study of"], a:1, e:"-itis = inflammation (appendicitis, bronchitis, arthritis)." },
+  { d:"prep", q:"Which of the following is part of the upper airway?", c:["Bronchi","Alveoli","Pharynx","Bronchioles"], a:2, e:"Upper airway: nose, mouth, pharynx, larynx. Lower airway: trachea, bronchi, bronchioles, alveoli." },
+  { d:"prep", q:"The involuntary muscle found in the walls of blood vessels and intestines is:", c:["Skeletal muscle","Cardiac muscle","Smooth muscle","Voluntary muscle"], a:2, e:"Smooth (involuntary) muscle lines hollow organs and vessels. Cardiac muscle is unique to the heart." },
+  { d:"prep", q:"The term 'distal' when describing the foot relative to the knee means the foot is:", c:["Above the knee","Closer to the trunk","Farther from the trunk","Behind the knee"], a:2, e:"Distal = farther from the point of attachment; the foot is distal to the knee." },
+  { d:"prep", q:"Which system is responsible for producing hormones such as insulin and adrenaline?", c:["Nervous system","Endocrine system","Lymphatic system","Integumentary system"], a:1, e:"The endocrine system secretes hormones (insulin from the pancreas, epinephrine from adrenal glands)." },
+  { d:"prep", q:"The lower jaw bone is called the:", c:["Maxilla","Mandible","Zygoma","Mastoid"], a:1, e:"The mandible is the movable lower jaw; the maxilla forms the upper jaw." },
+  { d:"prep", q:"Deoxygenated blood returns to the heart and enters the:", c:["Left atrium","Right atrium","Left ventricle","Aorta"], a:1, e:"The right atrium receives deoxygenated blood via the venae cavae, then it moves to the right ventricle and lungs." },
+  { d:"prep", q:"The term 'lateral' means:", c:["Toward the midline","Away from the midline","Toward the head","Toward the feet"], a:1, e:"Lateral = away from the midline; medial = toward the midline." },
+  { d:"prep", q:"The largest region of the brain, responsible for thought and voluntary action, is the:", c:["Cerebellum","Brainstem","Cerebrum","Medulla"], a:2, e:"The cerebrum governs higher functions. The cerebellum coordinates movement; the brainstem controls vital functions." },
+  { d:"prep", q:"The four abdominal quadrants are divided by imaginary lines crossing at the:", c:["Xiphoid process","Umbilicus (navel)","Pubic bone","Diaphragm"], a:1, e:"The quadrants (RUQ, LUQ, RLQ, LLQ) are defined by vertical and horizontal lines crossing at the umbilicus." },
+
+  // ---------------- AIRWAY & BREATHING (+15) ----------------
+  { d:"airway", q:"A nasopharyngeal airway (NPA) is preferred over an OPA when the patient:", c:["Is fully unresponsive","Has an intact gag reflex","Is in cardiac arrest","Has facial trauma"], a:1, e:"An NPA is better tolerated in patients with a gag reflex. Avoid it with suspected skull/facial fractures." },
+  { d:"airway", q:"The NPA is generally contraindicated in patients with:", c:["A gag reflex","Suspected basilar skull fracture","Nosebleed history","Dentures"], a:1, e:"Signs of basilar skull fracture (e.g., raccoon eyes, clear nasal drainage) contraindicate an NPA." },
+  { d:"airway", q:"Cyanosis (bluish skin) is a sign of:", c:["Good oxygenation","Inadequate oxygenation","Fever","Dehydration"], a:1, e:"Cyanosis reflects low blood oxygen; it's a late and serious sign of hypoxia." },
+  { d:"airway", q:"A patient with adequate breathing but low SpO2 and mild distress is best treated first with:", c:["BVM ventilation","A non-rebreather mask","Chest compressions","An OPA"], a:1, e:"If breathing is adequate but oxygenation is low, apply high-flow O2 via NRB; assist ventilation only if breathing becomes inadequate." },
+  { d:"airway", q:"Agonal respirations in a pulseless patient should be treated as:", c:["Adequate breathing","Cardiac arrest requiring CPR","A sign of recovery","Hyperventilation"], a:1, e:"Agonal gasps are not effective breathing; in a pulseless patient, begin CPR immediately." },
+  { d:"airway", q:"Retractions and nasal flaring in a child indicate:", c:["Normal breathing","Increased work of breathing","Adequate oxygenation","A full stomach"], a:1, e:"Retractions, nasal flaring, and grunting show the child is working hard to breathe — respiratory distress." },
+  { d:"airway", q:"The recommended oxygen flow for a nasal cannula is:", c:["1–6 LPM","10–12 LPM","15 LPM","20 LPM"], a:0, e:"Nasal cannula: 1–6 LPM delivering roughly 24–44% O2. Higher flows dry the nasal passages." },
+  { d:"airway", q:"When ventilating with a BVM, the most common cause of ineffective ventilation is:", c:["Squeezing too hard","A poor mask seal","Too much oxygen","Using two rescuers"], a:1, e:"An inadequate mask seal is the top cause of poor BVM ventilation; a two-person technique improves the seal." },
+  { d:"airway", q:"Excessively fast or forceful BVM ventilation can cause:", c:["Better oxygenation","Gastric distention and reduced cardiac output","Slower heart rate only","No adverse effect"], a:1, e:"Over-ventilation forces air into the stomach and raises intrathoracic pressure, reducing venous return." },
+  { d:"airway", q:"A patient with a complete airway obstruction who is conscious will typically:", c:["Cough forcefully","Be unable to speak or cough (clutching the throat)","Speak clearly","Breathe normally"], a:1, e:"Complete obstruction: no air movement, no speech/cough, universal choking sign — begin abdominal thrusts." },
+  { d:"airway", q:"For a conscious adult with a mild (partial) airway obstruction who is coughing forcefully, you should:", c:["Perform abdominal thrusts","Encourage them to keep coughing and monitor","Begin back blows","Start CPR"], a:1, e:"With good air exchange, encourage coughing; intervene only if it becomes a severe/complete obstruction." },
+  { d:"airway", q:"Pulse oximetry measures:", c:["Carbon dioxide levels","Percentage of hemoglobin saturated with oxygen","Blood pressure","Respiratory rate"], a:1, e:"SpO2 estimates oxygen saturation of hemoglobin. It can read falsely high with CO poisoning." },
+  { d:"airway", q:"An SpO2 reading of 88% in a patient indicates:", c:["Normal oxygenation","Hypoxia requiring oxygen","Hyperoxia","Equipment error only"], a:1, e:"Below ~94% suggests hypoxia; 88% warrants supplemental oxygen and reassessment of breathing adequacy." },
+  { d:"airway", q:"CPAP is used to help patients with:", c:["A blocked airway from a foreign body","Pulmonary edema or severe respiratory distress (when alert)","Cardiac arrest","Hypoglycemia"], a:1, e:"CPAP keeps alveoli open in conditions like CHF/pulmonary edema; the patient must be awake and breathing." },
+  { d:"airway", q:"The main muscle of respiration is the:", c:["Intercostal muscles","Diaphragm","Sternocleidomastoid","Abdominal muscles"], a:1, e:"The diaphragm does most of the work of breathing; accessory muscles assist during distress." },
+
+  // ---------------- PATIENT ASSESSMENT (+15) ----------------
+  { d:"assess", q:"The general impression of a patient is formed:", c:["After taking vital signs","Within the first few seconds of seeing the patient","Only after the history","During transport"], a:1, e:"The general impression is your immediate 'sick vs. not sick' read as you approach — it guides urgency." },
+  { d:"assess", q:"The 'C' in the primary assessment ABCs stands for:", c:["Consciousness","Circulation","Chest","Cervical spine"], a:1, e:"ABC = Airway, Breathing, Circulation. Circulation includes pulse, major bleeding, and skin/perfusion." },
+  { d:"vitals", q:"A radial pulse is normally palpated at the:", c:["Neck","Groin","Wrist","Ankle"], a:2, e:"Radial pulse = wrist (thumb side). Carotid = neck, femoral = groin, brachial = infant upper arm." },
+  { d:"vitals", q:"In an unresponsive adult, the preferred pulse to check is the:", c:["Radial","Carotid","Pedal","Brachial"], a:1, e:"Check the carotid (neck) pulse in an unresponsive adult; brachial is used for infants." },
+  { d:"vitals", q:"The pulse point used to check circulation in an infant is the:", c:["Carotid","Radial","Brachial","Femoral"], a:2, e:"The brachial pulse (inner upper arm) is used for infants because a carotid is hard to locate." },
+  { d:"vitals", q:"'PERRL' when assessing pupils stands for Pupils Equal, Round, and:", c:["Rapidly Reactive to Light","Reactive to Light","Reflexive Left","Regularly Located"], a:1, e:"PERRL = Pupils Equal, Round, Reactive to Light. Unequal or fixed pupils can signal a neurological problem." },
+  { d:"assess", q:"Jugular vein distention (JVD) may be a sign of:", c:["Dehydration","Back-up of blood into the venous system (e.g., heart failure)","Low blood pressure","Hyperglycemia"], a:1, e:"JVD suggests blood backing up in the venous system, seen in CHF, cardiac tamponade, or tension pneumothorax." },
+  { d:"vitals", q:"When taking a blood pressure by auscultation, the first sound you hear represents the:", c:["Diastolic pressure","Systolic pressure","Pulse pressure","Mean pressure"], a:1, e:"The first Korotkoff sound = systolic; the point where sounds disappear = diastolic." },
+  { d:"assess", q:"A key part of the secondary assessment is:", c:["Scene safety","A detailed head-to-toe or focused exam","Calling dispatch","Applying lights and siren"], a:1, e:"The secondary assessment is the detailed physical exam and vital signs after life threats are addressed." },
+  { d:"assess", q:"DCAP-BTLS is a memory aid used during the physical exam to look for:", c:["Vital sign trends","Signs of injury (deformities, contusions, etc.)","Medication history","Airway sounds"], a:1, e:"DCAP-BTLS: Deformities, Contusions, Abrasions, Punctures, Burns, Tenderness, Lacerations, Swelling." },
+  { d:"assess", q:"A patient who is confused about the date and place is described as:", c:["Alert and oriented x4","Disoriented / altered mental status","Unresponsive","Verbal only"], a:1, e:"Being 'oriented x4' means person, place, time, and event; confusion about these indicates altered mental status." },
+  { d:"assess", q:"For a stable medical patient, vital signs should be reassessed at least every:", c:["5 minutes","15 minutes","30 minutes","On arrival only"], a:1, e:"Stable patients: every 15 minutes. Unstable: every 5 minutes." },
+  { d:"assess", q:"The purpose of scene size-up includes all of the following EXCEPT:", c:["Ensuring scene safety","Determining number of patients","Identifying mechanism of injury","Delivering the definitive diagnosis"], a:3, e:"Scene size-up covers safety, MOI/NOI, number of patients, and resource needs — not a definitive diagnosis." },
+  { d:"assess", q:"A trauma patient with a heart rate of 130 and a systolic BP of 80 is showing signs of:", c:["Normal vitals","Decompensated shock","Bradycardia","Hypertension"], a:1, e:"Tachycardia with hypotension indicates the body can no longer compensate — decompensated (late) shock." },
+  { d:"assess", q:"When you first make patient contact, you should:", c:["Immediately take a blood pressure","Introduce yourself and get consent to treat","Load them for transport","Remove all clothing"], a:1, e:"Introduce yourself, state you're an EMT, and obtain consent before providing care to a responsive patient." },
+
+  // ---------------- CARDIOLOGY & RESUS (+16) ----------------
+  { d:"cardio", q:"An AED is designed to treat which two rhythms?", c:["Asystole and PEA","Ventricular fibrillation and pulseless ventricular tachycardia","Bradycardia and tachycardia","Atrial fibrillation only"], a:1, e:"AEDs shock V-fib and pulseless V-tach. They will not shock asystole ('flatline') or PEA." },
+  { d:"cardio", q:"After attaching an AED, you should:", c:["Continue compressions during analysis","Stop and ensure no one touches the patient during analysis","Check a pulse continuously","Ventilate during analysis"], a:1, e:"Stop CPR and clear the patient during rhythm analysis so motion doesn't distort the reading." },
+  { d:"cardio", q:"You should allow full chest recoil between compressions because it:", c:["Speeds up the rate","Allows the heart to refill with blood","Prevents rib fractures","Reduces fatigue"], a:1, e:"Full recoil lets the heart refill; leaning on the chest reduces venous return and lowers CPR effectiveness." },
+  { d:"cardio", q:"The correct hand placement for adult chest compressions is:", c:["Upper third of the sternum","Center of the chest, lower half of the sternum","Left side over the heart","Over the xiphoid process"], a:1, e:"Place the heel of the hand on the center of the chest, lower half of the sternum, avoiding the xiphoid." },
+  { d:"cardio", q:"For a 2-rescuer infant CPR, the preferred compression technique is:", c:["One-hand heel","Two-thumb encircling hands","Two fingers only","Full palm"], a:1, e:"Two-thumb encircling-hands technique is preferred for 2-rescuer infant CPR; two fingers for a lone rescuer." },
+  { d:"cardio", q:"If a patient regains a pulse after CPR (ROSC), you should:", c:["Continue compressions","Reassess airway/breathing and monitor closely","Remove the AED pads","Stop all care"], a:1, e:"After ROSC, support airway and breathing, monitor vitals and rhythm, and prepare for possible re-arrest." },
+  { d:"cardio", q:"AED pads should NOT be placed directly over:", c:["Dry skin","An implanted pacemaker or medication patch","The right chest","The left lower ribs"], a:1, e:"Avoid placing pads over pacemakers/ICDs or medication patches; remove patches and shift pad placement slightly." },
+  { d:"cardio", q:"If a patient in cardiac arrest is lying in water, you should first:", c:["Shock immediately","Move them to a dry area before defibrillating","Pour more water off","Not use the AED at all"], a:1, e:"Move the patient out of standing water and dry the chest before applying an AED to prevent current dispersion." },
+  { d:"cardio", q:"Congestive heart failure often presents with:", c:["Dry cough and thirst","Difficulty breathing, crackles, and pedal edema","Abdominal pain only","Bradycardia and fever"], a:1, e:"CHF causes fluid backup: dyspnea, lung crackles, JVD, and swelling (edema) in the legs/ankles." },
+  { d:"cardio", q:"A patient having a possible MI should generally be placed in what position (if no hypotension)?", c:["Flat supine","Position of comfort, often sitting up","Prone","Trendelenburg"], a:1, e:"Allow a comfortable position, often semi-Fowler's (sitting up), unless hypotension requires supine." },
+  { d:"cardio", q:"Which finding is a contraindication to assisting with nitroglycerin?", c:["Systolic BP of 140","Recent erectile dysfunction medication use","Chest pain","Pulse of 80"], a:1, e:"NTG with ED drugs (sildenafil/tadalafil) can cause severe hypotension; low systolic BP is also a contraindication." },
+  { d:"cardio", q:"The purpose of a defibrillator is to:", c:["Speed up a slow heart","Stop a chaotic rhythm so a normal one can resume","Provide oxygen","Lower blood pressure"], a:1, e:"Defibrillation delivers a shock to depolarize the heart, allowing the natural pacemaker to reestablish an organized rhythm." },
+  { d:"cardio", q:"'Diaphoresis' commonly accompanying chest pain refers to:", c:["Shortness of breath","Profuse sweating","Dizziness","Nausea"], a:1, e:"Diaphoresis = sweating; combined with chest pressure it strengthens suspicion of a cardiac event." },
+  { d:"cardio", q:"How often does the AED typically re-analyze the rhythm during an arrest?", c:["Every 30 seconds","Every 2 minutes (5 cycles of CPR)","Every 5 minutes","Only once"], a:1, e:"After a shock or no-shock advisory, resume CPR for ~2 minutes before the AED re-analyzes." },
+  { d:"cardio", q:"The chain of survival for out-of-hospital cardiac arrest begins with:", c:["Advanced care","Early recognition and activation of EMS","Defibrillation","Post-arrest care"], a:1, e:"The adult chain starts with early recognition and calling 911, then early CPR, early defibrillation, and advanced care." },
+  { d:"cardio", q:"When switching compressors during 2-rescuer CPR, the changeover should:", c:["Take at least 30 seconds","Happen quickly to minimize pauses","Wait for the AED","Occur every 30 seconds"], a:1, e:"Switch compressors about every 2 minutes, quickly (ideally during the ventilation/analysis pause) to limit interruptions." },
+
+  // ---------------- MEDICAL & TOX (+16) ----------------
+  { d:"medical", q:"A patient with a known seizure disorder who is actively seizing should be:", c:["Restrained tightly","Protected from injury with nothing forced into the mouth","Given oral glucose","Made to stand"], a:1, e:"Protect from injury, don't restrain or place anything in the mouth, and manage the airway after the seizure." },
+  { d:"medical", q:"After a seizure, the period of confusion and drowsiness is called the:", c:["Aura","Postictal state","Tonic phase","Prodrome"], a:1, e:"The postictal phase follows a seizure; the patient is often confused, sleepy, and gradually reorients." },
+  { d:"medical", q:"Which is a common sign of a stroke?", c:["Bilateral chest pain","Sudden one-sided facial droop or weakness","Fever with rash","Slow, deep breathing"], a:1, e:"Sudden unilateral weakness/droop, slurred speech, and confusion suggest stroke — note time of onset." },
+  { d:"medical", q:"When should you check blood glucose in a patient with altered mental status?", c:["Never","Routinely, as altered mental status is a common indicator","Only if diabetic","Only after transport"], a:1, e:"Altered mental status has many causes; checking glucose helps identify treatable hypoglycemia early." },
+  { d:"medical", q:"A patient with difficulty breathing, wheezing, and a history of asthma is likely experiencing:", c:["A heart attack","Bronchoconstriction","A stroke","Hyperglycemia"], a:1, e:"Wheezing from bronchoconstriction is typical of asthma; assist with a prescribed inhaler per protocol." },
+  { d:"medical", q:"The general term for a fainting episode caused by a temporary drop in blood flow to the brain is:", c:["Seizure","Syncope","Stroke","Shock"], a:1, e:"Syncope is a transient loss of consciousness from reduced cerebral perfusion; assess for underlying causes." },
+  { d:"medical", q:"A patient who overdosed on an opioid typically presents with:", c:["Dilated pupils and fast breathing","Pinpoint pupils and slow/absent breathing","High fever","Seizures and hypertension"], a:1, e:"Opioid overdose: pinpoint pupils, respiratory depression, and decreased LOC — support ventilation, consider naloxone." },
+  { d:"medical", q:"The priority in any suspected poisoning is to:", c:["Identify the exact poison first","Ensure scene safety and support the ABCs","Induce vomiting","Give food"], a:1, e:"Scene safety and airway/breathing/circulation support come first; contact poison control/medical direction for guidance." },
+  { d:"medical", q:"A patient with severe abdominal pain and a rigid, board-like abdomen may have:", c:["Simple indigestion","Internal bleeding or peritonitis","Anxiety only","Dehydration"], a:1, e:"A rigid, tender abdomen suggests serious pathology (bleeding, peritonitis) — treat for shock and transport." },
+  { d:"medical", q:"Which is an early sign of heat exhaustion?", c:["Hot, dry skin","Heavy sweating, weakness, and nausea","Seizures","Unresponsiveness"], a:1, e:"Heat exhaustion: heavy sweating, weakness, dizziness, nausea. Progression to hot/dry skin and altered LOC signals heat stroke." },
+  { d:"medical", q:"Heat stroke differs from heat exhaustion primarily by:", c:["Presence of sweating","Altered mental status and a dangerously high core temperature","Muscle cramps only","Normal skin"], a:1, e:"Heat stroke is a life threat: altered mental status, very high temperature — rapid cooling and transport." },
+  { d:"medical", q:"A patient found in the snow, shivering, with slurred speech is likely experiencing:", c:["Heat stroke","Hypothermia","Hyperglycemia","A stroke"], a:1, e:"Hypothermia: shivering (early), altered mental status, slurred speech — handle gently, remove wet clothing, rewarm." },
+  { d:"medical", q:"When rewarming a hypothermic patient in the field, you should:", c:["Rub the extremities vigorously","Handle gently and rewarm slowly, avoiding rough movement","Give hot coffee","Immerse in hot water"], a:1, e:"Handle hypothermic patients gently (rough handling can trigger arrhythmias); remove wet clothes and passively rewarm." },
+  { d:"medical", q:"Nausea, vomiting, and abdominal pain in a diabetic patient with fruity breath odor suggests:", c:["Hypoglycemia","Diabetic ketoacidosis (hyperglycemia)","Allergic reaction","Stroke"], a:1, e:"Fruity breath, deep rapid breathing (Kussmaul), and dehydration point to DKA — a hyperglycemic emergency." },
+  { d:"medical", q:"A patient exhibiting a behavioral emergency should first be assessed for:", c:["Criminal intent","Medical or traumatic causes of the behavior","Insurance status","Family history only"], a:1, e:"Rule out organic causes — hypoglycemia, hypoxia, head injury, drugs — before assuming a purely psychiatric cause." },
+  { d:"medical", q:"An 'aura' experienced before a seizure is best described as:", c:["A period of deep sleep","A warning sensation preceding the event","Complete paralysis","A drop in blood sugar"], a:1, e:"An aura is a sensory warning (smell, light, feeling) some patients experience before a seizure begins." },
+
+  // ---------------- TRAUMA & SHOCK (+16) ----------------
+  { d:"trauma", q:"The type of shock caused by severe blood or fluid loss is:", c:["Cardiogenic shock","Hypovolemic shock","Neurogenic shock","Anaphylactic shock"], a:1, e:"Hypovolemic shock results from loss of blood/fluid volume; hemorrhagic is the bleeding subtype." },
+  { d:"trauma", q:"Shock caused by a severe allergic reaction is called:", c:["Septic shock","Anaphylactic shock","Cardiogenic shock","Hypovolemic shock"], a:1, e:"Anaphylactic (distributive) shock results from widespread vasodilation and capillary leak during severe allergy." },
+  { d:"trauma", q:"A patient with a spinal cord injury causing warm, dry skin and hypotension without tachycardia may be in:", c:["Hypovolemic shock","Neurogenic shock","Cardiogenic shock","Compensated shock"], a:1, e:"Neurogenic shock from loss of sympathetic tone causes vasodilation, hypotension, and often a normal or slow heart rate." },
+  { d:"trauma", q:"The best way to control most external bleeding is:", c:["Elevation alone","Direct pressure","Pressure points only","Ice"], a:1, e:"Direct pressure is the first and most effective step; escalate to a tourniquet for uncontrolled extremity hemorrhage." },
+  { d:"trauma", q:"A hemostatic dressing is used to:", c:["Splint a fracture","Help stop bleeding in wounds not amenable to a tourniquet","Cover burns","Clean a wound"], a:1, e:"Hemostatic dressings promote clotting and are packed into junctional or deep wounds where a tourniquet won't work." },
+  { d:"trauma", q:"When caring for an amputated body part, you should:", c:["Place it directly on ice","Wrap it, keep it cool but not frozen, and transport with the patient","Discard it","Rinse it in bleach"], a:1, e:"Wrap the part in sterile dressing, keep it cool (not directly on ice, which causes frostbite), and bring it to the hospital." },
+  { d:"trauma", q:"A flail chest is characterized by:", c:["A single rib fracture","A segment of ribs moving paradoxically with breathing","Bruising only","A collapsed lung with no fracture"], a:1, e:"Flail chest = two or more ribs broken in two or more places; the segment moves opposite to normal (paradoxical motion)." },
+  { d:"trauma", q:"Signs of a tension pneumothorax include:", c:["Bradycardia and warm skin","Severe respiratory distress, JVD, and possible tracheal deviation","Slow capillary refill only","Normal breath sounds"], a:1, e:"Tension pneumothorax: worsening dyspnea, decreased/absent breath sounds on one side, JVD, hypotension — a true emergency." },
+  { d:"trauma", q:"A patient with a suspected spinal injury should be moved using:", c:["A single rescuer quickly","Manual in-line stabilization and coordinated movement","Only a stair chair","No restrictions"], a:1, e:"Maintain manual in-line stabilization and move as a unit to prevent secondary spinal cord injury." },
+  { d:"trauma", q:"The proper care for an open abdominal wound with protruding organs (evisceration) is to:", c:["Push the organs back in","Cover with a moist sterile dressing and keep them warm","Apply a tourniquet","Leave uncovered"], a:1, e:"Do not replace eviscerated organs; cover with a moist, sterile dressing and prevent heat/moisture loss." },
+  { d:"trauma", q:"When splinting a suspected fracture, you should assess distal pulse, motor, and sensation:", c:["Only before splinting","Only after splinting","Before and after splinting","Never"], a:2, e:"Check circulation, motor, and sensory function (CMS/PMS) both before and after splinting to detect compromise." },
+  { d:"trauma", q:"A superficial (first-degree) burn involves:", c:["Only the outer layer of skin (epidermis), red and painful","The full thickness of skin","Muscle and bone","Blistering through the dermis"], a:0, e:"Superficial burns affect only the epidermis (like a sunburn): red, painful, no blisters. Partial-thickness blisters; full-thickness is charred/leathery." },
+  { d:"trauma", q:"For a chemical burn to the eye, you should:", c:["Cover both eyes and wait","Irrigate the eye continuously with water/saline","Apply ointment","Rub the eye"], a:1, e:"Flush the affected eye with copious water/saline (from inner to outer corner) continuously during transport." },
+  { d:"trauma", q:"The 'golden hour' (or golden period) in trauma refers to:", c:["The first hour of a shift","The importance of definitive surgical care soon after serious injury","Ambulance response time","Time to arrival on scene"], a:1, e:"The concept emphasizes getting critically injured patients to definitive care quickly; minimize on-scene time." },
+  { d:"trauma", q:"A patient ejected from a vehicle should be considered:", c:["Low priority","A high-priority trauma with significant MOI","Stable if walking","Not a trauma patient"], a:1, e:"Ejection is a significant mechanism of injury associated with severe trauma — high index of suspicion and rapid transport." },
+  { d:"trauma", q:"Applying a cervical collar does what for a spinal-injury patient?", c:["Fully immobilizes the spine alone","Limits movement as one part of overall spinal motion restriction","Treats the fracture","Replaces manual stabilization permanently"], a:1, e:"A collar limits but does not eliminate motion; maintain manual stabilization and overall spinal precautions." },
+
+  // ---------------- OB / PEDS / SPECIAL (+18) ----------------
+  { d:"special", q:"The three stages of labor, in order, are:", c:["Delivery, dilation, placenta","Dilation, delivery of the baby, delivery of the placenta","Placenta, delivery, dilation","Contractions, dilation, recovery"], a:1, e:"Stage 1: cervical dilation. Stage 2: delivery of the infant. Stage 3: delivery of the placenta." },
+  { d:"special", q:"After delivering a newborn, your first priorities are to:", c:["Cut the cord immediately","Dry, warm, position, and stimulate the newborn","Deliver the placenta first","Suction the stomach"], a:1, e:"Dry and warm the newborn, position the airway, and stimulate; assess breathing, heart rate, and color." },
+  { d:"special", q:"A prolapsed umbilical cord is an emergency because:", c:["The mother will bleed heavily","The cord can be compressed, cutting off fetal oxygen","Labor stops","It causes infection"], a:1, e:"A prolapsed cord can be compressed by the baby, cutting off blood flow — relieve pressure and transport emergently." },
+  { d:"special", q:"A newborn's heart rate below 100 after drying and stimulation requires:", c:["Chest compressions immediately","Positive-pressure ventilation","Oral glucose","Nothing"], a:1, e:"For a newborn HR <100 despite drying/stimulation, begin positive-pressure ventilation; compressions if HR <60 despite ventilation." },
+  { d:"special", q:"Which is a sign of imminent delivery?", c:["Mild contractions 10 minutes apart","Crowning and strong, frequent contractions","No urge to push","Water hasn't broken"], a:1, e:"Crowning plus strong, close contractions and an urge to push signal delivery is imminent — prepare to deliver on scene." },
+  { d:"special", q:"When suctioning a newborn, you should suction the:", c:["Nose first, then mouth","Mouth first, then nose","Only the nose","Only the stomach"], a:1, e:"Suction the mouth before the nose ('M before N') so the newborn doesn't gasp and aspirate when the nose is stimulated." },
+  { d:"special", q:"The normal heart rate range for an infant (under 1 year) is approximately:", c:["60–100/min","100–160/min","20–40/min","180–220/min"], a:1, e:"Infant heart rates are faster than adults, roughly 100–160/min at rest." },
+  { d:"special", q:"A child in respiratory distress who becomes quiet with a decreasing effort of breathing is:", c:["Improving","Deteriorating toward respiratory failure","Faking","Well-oxygenated"], a:1, e:"A tiring child who quiets and slows their breathing is worsening — impending respiratory failure/arrest. Act urgently." },
+  { d:"special", q:"When assessing a young child, a helpful approach is to:", c:["Separate them from the caregiver","Assess toe-to-head and keep the caregiver close","Move quickly and loudly","Skip the parent's input"], a:1, e:"Kids are often calmer with a caregiver present; a toe-to-head exam is less frightening for young children." },
+  { d:"special", q:"The soft spots on an infant's skull are called:", c:["Sutures","Fontanelles","Foramina","Ossicles"], a:1, e:"Fontanelles are the soft membranous gaps; a sunken fontanelle can indicate dehydration, a bulging one raised pressure." },
+  { d:"special", q:"A leading cause of injury death in children is:", c:["Poisoning","Motor vehicle collisions / trauma","Allergic reactions","Seizures"], a:1, e:"Unintentional injury, especially motor vehicle trauma, is a leading pediatric cause of death — prevention and rapid care matter." },
+  { d:"special", q:"Geriatric patients are at higher risk during falls partly because of:", c:["Faster reflexes","Osteoporosis and blood-thinning medications","Higher blood volume","Thicker skin"], a:1, e:"Fragile bones (osteoporosis) and anticoagulants raise fracture and bleeding risk after seemingly minor falls." },
+  { d:"special", q:"When communicating with a hearing-impaired patient, you should:", c:["Shout loudly","Face them, speak clearly, and consider writing","Turn away","Speak only to family"], a:1, e:"Face the patient in good light, speak clearly (don't shout), and use written communication or an interpreter as needed." },
+  { d:"special", q:"A common concern when caring for a pregnant trauma patient is that:", c:["The fetus is never affected","The mother can lose significant blood before showing signs, risking the fetus","Vitals are always abnormal","No transport is needed"], a:1, e:"Increased maternal blood volume can mask blood loss; treat the mother aggressively — the best fetal care is good maternal care." },
+  { d:"special", q:"Spina bifida, cerebral palsy, and Down syndrome are examples of conditions requiring:", c:["No special consideration","Individualized, patient-centered communication and care","Immediate restraint","Refusal of transport"], a:1, e:"Patients with special needs deserve tailored, respectful care; involve caregivers who know the patient's baseline." },
+  { d:"special", q:"A pregnant patient who suddenly has a seizure late in pregnancy may have:", c:["Simple fainting","Eclampsia","Hypoglycemia only","A stroke only"], a:1, e:"Seizures in late pregnancy/postpartum with high blood pressure suggest eclampsia — a life threat for mother and baby." },
+  { d:"special", q:"If a breech birth begins and the body delivers but the head does not, you should:", c:["Pull firmly on the body","Support the body and create an airway for the infant while transporting emergently","Push the baby back in","Wait without acting"], a:1, e:"Support the body, form a 'V' with gloved fingers to create an airway around the baby's nose/mouth, and transport emergently." },
+  { d:"special", q:"An APGAR score is assessed at:", c:["Birth and 10 minutes","1 minute and 5 minutes after birth","Only once","Every minute for an hour"], a:1, e:"APGAR is scored at 1 and 5 minutes after birth to evaluate the newborn's transition." },
+
+  // ---------------- EMS OPERATIONS (+18) ----------------
+  { d:"ops", q:"The five phases of a typical ambulance call begin with:", c:["Patient care","Preparation for the call","Transport","Documentation"], a:1, e:"Phases: preparation, dispatch, en route, on scene, transport, at hospital, and post-run — starting with being ready." },
+  { d:"ops", q:"When approaching a potential crime scene, the EMT should:", c:["Move everything to help police","Provide patient care while preserving evidence when possible","Refuse to enter","Clean the scene"], a:1, e:"Care for the patient first, but avoid disturbing evidence unnecessarily and document what you moved and why." },
+  { d:"ops", q:"'Triage' means to:", c:["Transport everyone at once","Sort patients by severity to prioritize care","Treat the loudest patient first","Wait for hospital direction"], a:1, e:"Triage sorts patients so limited resources go to those who benefit most, especially in multi-casualty incidents." },
+  { d:"ops", q:"In START triage, a patient with a respiratory rate over 30/min is tagged:", c:["Green","Yellow","Red (immediate)","Black"], a:2, e:"START flags RR >30, absent radial pulse/cap refill >2s, or inability to follow commands as Red (immediate)." },
+  { d:"ops", q:"The safety zone from which responders operate at a hazardous materials scene is the:", c:["Hot zone","Warm zone","Cold zone","Exclusion zone"], a:2, e:"The cold zone is the safe support area. The hot zone is the contaminated area; the warm zone is for decontamination." },
+  { d:"ops", q:"If you suspect a hazardous material is present, you should:", c:["Rush in to help","Stay uphill/upwind at a safe distance and call for specialized resources","Drive through the vapor","Remove your PPE"], a:1, e:"Approach from uphill/upwind, keep your distance, use binoculars to read placards, and request a hazmat team." },
+  { d:"ops", q:"Consent obtained from a conscious, competent adult who agrees to care is called:", c:["Implied consent","Expressed consent","Involuntary consent","Proxy consent"], a:1, e:"Expressed (informed) consent is when the patient explicitly agrees after being told the plan and risks." },
+  { d:"ops", q:"For a minor who needs emergency care with no parent available, care is provided under:", c:["Expressed consent","Implied consent (emergency doctrine)","No consent needed to document","Court order only"], a:1, e:"Emergency care for a minor when a parent/guardian is unreachable proceeds under implied consent." },
+  { d:"ops", q:"'Abandonment' occurs when an EMT:", c:["Transfers care to an equal or higher provider","Stops care without transferring to an equal/higher level of care","Refuses to lift","Documents thoroughly"], a:1, e:"Abandonment = terminating care without handoff to a provider of equal or higher training once care has begun." },
+  { d:"ops", q:"A valid refusal of care requires the patient to be:", c:["A minor","Competent and fully informed of the risks","Intoxicated","Unconscious"], a:1, e:"The patient must be a competent adult, informed of the risks of refusal; document thoroughly and encourage transport." },
+  { d:"ops", q:"HIPAA primarily protects:", c:["Ambulance equipment","The patient's protected health information","EMT wages","Response times"], a:1, e:"HIPAA safeguards patient health information; share it only with those involved in care or as legally required." },
+  { d:"ops", q:"The proper technique to lift a heavy patient is to:", c:["Bend at the waist","Keep the back straight and lift with the legs","Twist while lifting","Lift with arms fully extended"], a:1, e:"Use your legs, keep the back straight and the load close, and avoid twisting to prevent injury (power lift)." },
+  { d:"ops", q:"The 'power grip' is used to:", c:["Steer the ambulance","Get maximum lifting force with palms and fingers","Carry the radio","Open the airway"], a:1, e:"In the power grip, palms and fingers contact the object, hands ~10 inches apart, for maximum, safe lifting force." },
+  { d:"ops", q:"When moving a patient who is in immediate danger (e.g., fire), you perform a(n):", c:["Non-urgent move","Emergency move","Routine transfer","Log roll only"], a:1, e:"An emergency move is used when there's an immediate threat to life; accept some risk to spinal precautions to remove danger." },
+  { d:"ops", q:"The proper position for a patient with a decreased level of consciousness and no spinal concern is the:", c:["Supine flat","Recovery (lateral recumbent) position","Trendelenburg","Fowler's"], a:1, e:"The recovery position helps keep the airway clear and lets fluids drain in an unresponsive breathing patient." },
+  { d:"ops", q:"Cleaning that kills most microorganisms on a surface is called:", c:["Sterilization","Disinfection","Low-level cleaning","Contamination"], a:1, e:"Disinfection destroys most pathogens; sterilization destroys all microorganisms including spores." },
+  { d:"ops", q:"Emergency vehicle operators should use lights and siren:", c:["Always at maximum speed","Only when responding to true emergencies, driving with due regard","Never","To clear personal traffic"], a:1, e:"Use warning devices only for genuine emergencies and always drive with 'due regard' for others' safety." },
+  { d:"ops", q:"An advance directive such as a DNR order instructs providers to:", c:["Always perform full CPR","Withhold specified resuscitative measures per the patient's documented wishes","Ignore the patient","Transport without care"], a:1, e:"A valid DNR directs which resuscitative measures to withhold; verify it's valid and follow local protocol." },
+
+  // ---------------- PHARMACOLOGY (+17) ----------------
+  { d:"pharm", q:"A medication's 'generic name' is:", c:["The brand/trade name","The non-proprietary chemical name","The dose","The manufacturer"], a:1, e:"The generic name is the official non-proprietary name (e.g., acetaminophen); the trade name is the brand (e.g., Tylenol)." },
+  { d:"pharm", q:"'Indications' for a medication describe:", c:["When NOT to give it","The reasons/conditions for which it is given","Its side effects","Its cost"], a:1, e:"Indications are the conditions the drug is used to treat; contraindications are reasons to withhold it." },
+  { d:"pharm", q:"The sublingual route means the medication is placed:", c:["Under the skin","Under the tongue","In the muscle","In the vein"], a:1, e:"Sublingual = under the tongue, allowing rapid absorption through mucous membranes (e.g., nitroglycerin)." },
+  { d:"pharm", q:"Epinephrine's effect in anaphylaxis includes:", c:["Lowering blood pressure","Constricting blood vessels and opening airways","Slowing the heart","Sedation"], a:1, e:"Epinephrine causes vasoconstriction (raising BP) and bronchodilation (opening airways), reversing anaphylaxis." },
+  { d:"pharm", q:"The typical adult dose route for albuterol is:", c:["Intramuscular injection","Inhalation (nebulizer or MDI)","Sublingual","Rectal"], a:1, e:"Albuterol is inhaled via metered-dose inhaler or nebulizer to relax bronchial smooth muscle." },
+  { d:"pharm", q:"A 'side effect' is:", c:["The intended action","An unintended effect of a drug at normal doses","An overdose","A contraindication"], a:1, e:"A side effect is an additional, often unwanted, effect that occurs even at therapeutic doses." },
+  { d:"pharm", q:"Before administering any medication, the EMT confirms it is not:", c:["The right patient","Expired or discolored","The right route","Documented"], a:1, e:"Always check expiration date and clarity/color; never give expired or contaminated-looking medication." },
+  { d:"pharm", q:"Which medication might an EMT assist a patient in taking for chest pain?", c:["Insulin","Aspirin and prescribed nitroglycerin","Albuterol","Naloxone"], a:1, e:"For cardiac chest pain, EMTs may give aspirin and assist with the patient's prescribed nitroglycerin, per protocol." },
+  { d:"pharm", q:"The 'per os' (PO) route means the drug is given:", c:["By mouth","By injection","Rectally","By inhalation"], a:0, e:"PO (per os) = by mouth. IM = intramuscular, IV = intravenous, SL = sublingual, SQ = subcutaneous." },
+  { d:"pharm", q:"Oxygen is indicated for patients who are:", c:["Always, at 15 LPM regardless","Hypoxic or in respiratory/cardiac distress, titrated to need","Never","Only if unconscious"], a:1, e:"Give oxygen for hypoxia or significant distress and titrate to an appropriate SpO2 rather than defaulting to max flow." },
+  { d:"pharm", q:"An 'antidote' is a substance that:", c:["Enhances a poison","Counteracts the effects of a poison or drug","Causes vomiting","Increases absorption"], a:1, e:"An antidote reverses or neutralizes a toxin's effects (e.g., naloxone for opioids)." },
+  { d:"pharm", q:"A patient's own prescribed auto-injector may be used by the EMT when:", c:["It belongs to a family member","It is prescribed to the patient and protocol allows","It is expired","The EMT prefers it"], a:1, e:"Assist only with the patient's own, current prescription within your scope and local protocol." },
+  { d:"pharm", q:"'Contraindicated' means the medication:", c:["Should be given twice","Should not be given in that situation","Works faster","Has no effect"], a:1, e:"A contraindication is a specific reason to withhold a drug to avoid harm." },
+  { d:"pharm", q:"The intramuscular (IM) route delivers medication into the:", c:["Vein","Muscle tissue","Fatty layer under the skin","Airway"], a:1, e:"IM injections go into muscle (e.g., the thigh for an epinephrine auto-injector) for relatively rapid absorption." },
+  { d:"pharm", q:"When helping a patient self-administer nitroglycerin, you should have them:", c:["Chew and swallow it","Place it under the tongue and let it dissolve","Inhale it","Rub it on the chest"], a:1, e:"NTG dissolves under the tongue; the patient should not chew or swallow it, and should sit/lie down due to possible BP drop." },
+  { d:"pharm", q:"Aspirin should be withheld if the patient:", c:["Has chest pain","Has a known allergy to aspirin","Is over 40","Feels nauseous"], a:1, e:"A documented aspirin allergy (or active GI bleeding, per protocol) is a contraindication to giving aspirin." },
+  { d:"pharm", q:"The abbreviation 'gtt' in medication orders refers to:", c:["Grams","Drops","Grains","Milliliters"], a:1, e:"'gtt' means drops (as in a drip); 'gtt/min' is drops per minute in IV therapy." },
+
+  // ---------------- MED MATH (+14) ----------------
+  { d:"math", q:"Convert 3.5 liters to milliliters:", c:["35 mL","350 mL","3,500 mL","35,000 mL"], a:2, e:"1 L = 1,000 mL, so 3.5 L = 3,500 mL." },
+  { d:"math", q:"A patient weighs 220 lb. In kilograms (÷2.2):", c:["100 kg","110 kg","90 kg","200 kg"], a:0, e:"220 ÷ 2.2 = 100 kg." },
+  { d:"math", q:"You need 25 mg from a 50 mg/mL vial. Volume to draw:", c:["0.25 mL","0.5 mL","1 mL","2 mL"], a:1, e:"25 mg ÷ 50 mg/mL = 0.5 mL." },
+  { d:"math", q:"Convert 250 micrograms (mcg) to milligrams (mg):", c:["0.25 mg","2.5 mg","25 mg","0.025 mg"], a:0, e:"1 mg = 1,000 mcg, so 250 mcg = 0.25 mg." },
+  { d:"math", q:"A drug is dosed 0.01 mg/kg for a 30 kg child. Dose:", c:["0.3 mg","3 mg","0.03 mg","30 mg"], a:0, e:"0.01 mg × 30 kg = 0.3 mg." },
+  { d:"math", q:"Convert 98.6°F to Celsius. (°C = (°F − 32) × 5/9)", c:["36°C","37°C","38°C","35°C"], a:1, e:"(98.6 − 32) = 66.6; × 5/9 = 37°C — normal body temperature." },
+  { d:"math", q:"How many milligrams are in 2.5 grams?", c:["25 mg","250 mg","2,500 mg","25,000 mg"], a:2, e:"1 g = 1,000 mg, so 2.5 g = 2,500 mg." },
+  { d:"math", q:"A 15 kg child needs a drug at 4 mg/kg. Total dose:", c:["30 mg","45 mg","60 mg","75 mg"], a:2, e:"4 mg × 15 kg = 60 mg." },
+  { d:"math", q:"An oxygen tank flows at 6 LPM. How many liters are used in 20 minutes?", c:["60 L","120 L","26 L","300 L"], a:1, e:"6 L/min × 20 min = 120 L." },
+  { d:"math", q:"You must give 1 gram of a drug supplied as 500 mg/mL. Volume needed:", c:["0.5 mL","1 mL","2 mL","4 mL"], a:2, e:"1 g = 1,000 mg; 1,000 mg ÷ 500 mg/mL = 2 mL." },
+  { d:"math", q:"Convert 0.75 mg to micrograms (mcg):", c:["7.5 mcg","75 mcg","750 mcg","7,500 mcg"], a:2, e:"1 mg = 1,000 mcg, so 0.75 mg = 750 mcg." },
+  { d:"math", q:"A patient's heart rate is 84 beats in 60 seconds. If you counted for 15 seconds and multiplied, the 15-second count was:", c:["21","42","12","84"], a:0, e:"84 ÷ 4 = 21 beats in 15 seconds (then ×4 to get the per-minute rate)." },
+  { d:"math", q:"How many kilograms does an 11 lb newborn weigh (÷2.2)?", c:["5 kg","2.2 kg","11 kg","22 kg"], a:0, e:"11 ÷ 2.2 = 5 kg." },
+  { d:"math", q:"You need to deliver 500 mL over 25 minutes. What is the flow in mL per minute?", c:["10 mL/min","20 mL/min","25 mL/min","5 mL/min"], a:1, e:"500 mL ÷ 25 min = 20 mL/min." },
+];
+
+// ============================================================
+// MED MATH EXPANSION — drip rates, concentrations, dosing, dilutions
+// Merged into QUESTIONS at build time.
+// ============================================================
+const QUESTIONS_MATH = [
+  // --- IV drip / flow rates ---
+  { d:"math", q:"A microdrip (micro-drip) administration set delivers how many drops per mL?", c:["10 gtt/mL","15 gtt/mL","20 gtt/mL","60 gtt/mL"], a:3, e:"Microdrip sets = 60 gtt/mL. Macrodrip sets are commonly 10, 15, or 20 gtt/mL." },
+  { d:"math", q:"Using the formula gtt/min = (volume × drop factor) ÷ time, infuse 1000 mL over 100 minutes with a 10 gtt/mL set:", c:["50 gtt/min","100 gtt/min","167 gtt/min","250 gtt/min"], a:1, e:"(1000 × 10) ÷ 100 = 100 gtt/min." },
+  { d:"math", q:"Infuse 500 mL over 30 minutes with a 15 gtt/mL set. Drip rate?", c:["150 gtt/min","200 gtt/min","250 gtt/min","300 gtt/min"], a:2, e:"(500 × 15) ÷ 30 = 7500 ÷ 30 = 250 gtt/min." },
+  { d:"math", q:"Deliver 30 mL over 30 minutes using a 60 gtt/mL microdrip set. Drip rate?", c:["30 gtt/min","60 gtt/min","90 gtt/min","120 gtt/min"], a:1, e:"(30 × 60) ÷ 30 = 60 gtt/min." },
+  { d:"math", q:"Infuse 100 mL over 20 minutes with a 15 gtt/mL set. Drip rate?", c:["50 gtt/min","75 gtt/min","100 gtt/min","150 gtt/min"], a:1, e:"(100 × 15) ÷ 20 = 1500 ÷ 20 = 75 gtt/min." },
+  { d:"math", q:"An IV is ordered at 120 mL/hr. How many mL per minute is that?", c:["1 mL/min","2 mL/min","4 mL/min","12 mL/min"], a:1, e:"120 mL/hr ÷ 60 min = 2 mL/min." },
+  { d:"math", q:"A 250 mL bag is to run over 2 hours. What is the hourly rate?", c:["100 mL/hr","125 mL/hr","250 mL/hr","500 mL/hr"], a:1, e:"250 mL ÷ 2 hr = 125 mL/hr." },
+  { d:"math", q:"Infuse 1.5 L over 30 minutes. What is the rate in mL/min?", c:["30 mL/min","50 mL/min","75 mL/min","150 mL/min"], a:1, e:"1.5 L = 1500 mL; 1500 ÷ 30 = 50 mL/min." },
+
+  // --- Concentrations ---
+  { d:"math", q:"A vial contains 250 mg in 5 mL. What is the concentration?", c:["25 mg/mL","50 mg/mL","100 mg/mL","5 mg/mL"], a:1, e:"250 mg ÷ 5 mL = 50 mg/mL." },
+  { d:"math", q:"You mix 1 g of a drug into a 250 mL bag. What is the concentration in mg/mL?", c:["2 mg/mL","4 mg/mL","10 mg/mL","40 mg/mL"], a:1, e:"1 g = 1000 mg; 1000 ÷ 250 = 4 mg/mL." },
+  { d:"math", q:"Epinephrine 1:1,000 has a concentration of:", c:["0.1 mg/mL","1 mg/mL","10 mg/mL","0.01 mg/mL"], a:1, e:"1:1,000 = 1 g in 1,000 mL = 1 mg/mL (the concentration in an epi auto-injector / IM epi)." },
+  { d:"math", q:"Epinephrine 1:10,000 has a concentration of:", c:["1 mg/mL","0.1 mg/mL","0.01 mg/mL","10 mg/mL"], a:1, e:"1:10,000 = 1 g in 10,000 mL = 0.1 mg/mL (the concentration used IV in cardiac arrest)." },
+  { d:"math", q:"A 0.9% normal saline solution contains how many grams of salt per 100 mL?", c:["0.09 g","0.9 g","9 g","90 g"], a:1, e:"A percent solution is grams per 100 mL, so 0.9% = 0.9 g per 100 mL." },
+  { d:"math", q:"D50 (50% dextrose) contains how many grams of dextrose per mL?", c:["0.05 g/mL","0.5 g/mL","5 g/mL","50 g/mL"], a:1, e:"50% = 50 g per 100 mL = 0.5 g/mL. A 25 g dose is therefore 50 mL." },
+
+  // --- Dose-to-volume ---
+  { d:"math", q:"You must give 100 mg from a vial of 50 mg/mL. Volume to draw?", c:["0.5 mL","1 mL","2 mL","4 mL"], a:2, e:"100 mg ÷ 50 mg/mL = 2 mL." },
+  { d:"math", q:"Give 60 mg from a 20 mg/mL vial. Volume?", c:["1 mL","2 mL","3 mL","4 mL"], a:2, e:"60 mg ÷ 20 mg/mL = 3 mL." },
+  { d:"math", q:"A drug is 4 mg/mL. To give 10 mg you draw up:", c:["1.5 mL","2 mL","2.5 mL","4 mL"], a:2, e:"10 mg ÷ 4 mg/mL = 2.5 mL." },
+  { d:"math", q:"You need 0.3 mg of epinephrine 1:1,000 (1 mg/mL). Volume?", c:["0.1 mL","0.3 mL","1 mL","3 mL"], a:1, e:"0.3 mg ÷ 1 mg/mL = 0.3 mL." },
+
+  // --- Weight-based dosing (2-step) ---
+  { d:"math", q:"A drug is dosed 5 mg/kg for a 20 kg child; the vial is 50 mg/mL. Volume to give?", c:["1 mL","2 mL","5 mL","0.5 mL"], a:1, e:"5 mg × 20 kg = 100 mg; 100 mg ÷ 50 mg/mL = 2 mL." },
+  { d:"math", q:"A patient weighs 176 lb. A drug is dosed 1 mg/kg. Total dose? (÷2.2 first)", c:["80 mg","88 mg","176 mg","40 mg"], a:0, e:"176 ÷ 2.2 = 80 kg; 1 mg × 80 kg = 80 mg." },
+  { d:"math", q:"A 25 kg child needs a drug at 2 mg/kg. Total dose?", c:["25 mg","50 mg","75 mg","100 mg"], a:1, e:"2 mg × 25 kg = 50 mg." },
+  { d:"math", q:"A drug is 0.1 mg/kg for a 70 kg patient, supplied as 1 mg/mL. Volume?", c:["0.7 mL","1 mL","7 mL","0.07 mL"], a:2, e:"0.1 mg × 70 kg = 7 mg; 7 mg ÷ 1 mg/mL = 7 mL." },
+
+  // --- Conversions / temperature ---
+  { d:"math", q:"Convert 104°F to Celsius. (°C = (°F − 32) × 5/9)", c:["38°C","39°C","40°C","42°C"], a:2, e:"(104 − 32) = 72; 72 × 5/9 = 40°C." },
+  { d:"math", q:"Convert 39°C to Fahrenheit. (°F = °C × 9/5 + 32)", c:["100.4°F","101.2°F","102.2°F","103.5°F"], a:2, e:"39 × 9/5 = 70.2; + 32 = 102.2°F." },
+  { d:"math", q:"Convert 70 kg to pounds (×2.2):", c:["140 lb","154 lb","160 lb","144 lb"], a:1, e:"70 × 2.2 = 154 lb." },
+  { d:"math", q:"How many micrograms are in 0.5 mg?", c:["50 mcg","500 mcg","5,000 mcg","0.0005 mcg"], a:1, e:"1 mg = 1,000 mcg, so 0.5 mg = 500 mcg." },
+];
+
+// ============================================================
+// EXPANSION v4 — more A&P/terminology, a dedicated VITALS domain
+// (normal ranges + abnormal recognition), and assessment backfill.
+// ============================================================
+const QUESTIONS_V4 = [
+
+  // ---------------- A&P + TERMINOLOGY (+14) ----------------
+  { d:"prep", q:"The plane that divides the body into front (anterior) and back (posterior) portions is the:", c:["Sagittal plane","Transverse plane","Frontal (coronal) plane","Midline"], a:2, e:"The frontal (coronal) plane separates front from back. Sagittal = left/right; transverse = top/bottom." },
+  { d:"prep", q:"The medical suffix '-ectomy' means:", c:["Inflammation of","Surgical removal of","Study of","Enlargement of"], a:1, e:"-ectomy = surgical removal (appendectomy, tonsillectomy). -otomy = cutting into; -ostomy = making an opening." },
+  { d:"prep", q:"The larger, weight-bearing bone of the lower leg (the shin) is the:", c:["Fibula","Tibia","Femur","Radius"], a:1, e:"The tibia is the shin bone; the fibula is the thinner lateral bone of the lower leg." },
+  { d:"prep", q:"The collarbone is anatomically known as the:", c:["Scapula","Sternum","Clavicle","Humerus"], a:2, e:"The clavicle (collarbone) connects the sternum to the scapula (shoulder blade)." },
+  { d:"prep", q:"The prefix 'hyper-' means:", c:["Below or deficient","Above or excessive","Equal to","Around"], a:1, e:"Hyper- = above/excessive (hypertension); hypo- = below/deficient (hypotension, hypoglycemia)." },
+  { d:"prep", q:"The trachea is commonly called the:", c:["Voice box","Windpipe","Food pipe","Air sac"], a:1, e:"The trachea (windpipe) carries air to the bronchi; the esophagus ('food pipe') carries food to the stomach." },
+  { d:"prep", q:"How many chambers does the human heart have?", c:["Two","Three","Four","Five"], a:2, e:"Four: two atria (upper) and two ventricles (lower)." },
+  { d:"prep", q:"The cervical (neck) region of the spine contains how many vertebrae?", c:["5","7","12","33"], a:1, e:"There are 7 cervical vertebrae. The spine has 5 regions: cervical, thoracic, lumbar, sacral, coccygeal." },
+  { d:"prep", q:"The liver is located primarily in which abdominal quadrant?", c:["Right upper quadrant","Left upper quadrant","Right lower quadrant","Left lower quadrant"], a:0, e:"The liver sits mainly in the RUQ. The spleen is in the LUQ; the appendix issues pain in the RLQ." },
+  { d:"prep", q:"Ligaments connect:", c:["Muscle to bone","Bone to bone","Nerve to muscle","Skin to muscle"], a:1, e:"Ligaments connect bone to bone; tendons connect muscle to bone." },
+  { d:"prep", q:"The part of the nervous system that controls involuntary functions like heart rate and digestion is the:", c:["Central nervous system","Autonomic nervous system","Skeletal system","Peripheral sensory system"], a:1, e:"The autonomic nervous system controls involuntary functions, divided into sympathetic and parasympathetic branches." },
+  { d:"prep", q:"Arteries are blood vessels that carry blood:", c:["Toward the heart","Away from the heart","Only to the lungs","Into the stomach"], a:1, e:"Arteries carry blood away from the heart; veins return blood to the heart. (The pulmonary artery is the exception carrying deoxygenated blood.)" },
+  { d:"prep", q:"The part of the brain that controls basic vital functions such as breathing and heart rate is the:", c:["Cerebrum","Cerebellum","Brainstem","Frontal lobe"], a:2, e:"The brainstem (including the medulla) controls automatic vital functions like breathing, heart rate, and blood pressure." },
+  { d:"prep", q:"The study of the function of body structures is called:", c:["Anatomy","Physiology","Pathology","Etiology"], a:1, e:"Physiology studies function; anatomy studies structure. Pathology studies disease." },
+
+  // ---------------- VITAL SIGNS — NORMAL RANGES (+9) ----------------
+  { d:"vitals", q:"The normal resting heart rate for an adult is:", c:["40–60 bpm","60–100 bpm","100–120 bpm","120–160 bpm"], a:1, e:"Normal adult resting heart rate is 60–100 beats per minute." },
+  { d:"vitals", q:"A normal oxygen saturation (SpO2) on room air is approximately:", c:["70–80%","85–90%","95–100%","below 85%"], a:2, e:"Normal SpO2 is about 95–100% on room air. Below ~94% suggests hypoxia and the need for oxygen." },
+  { d:"vitals", q:"Normal oral body temperature is approximately:", c:["96.0°F (35.6°C)","98.6°F (37°C)","100.4°F (38°C)","102°F (38.9°C)"], a:1, e:"Normal body temperature is about 98.6°F (37°C). A fever is generally 100.4°F (38°C) or higher." },
+  { d:"vitals", q:"Normal capillary refill time in a healthy person is:", c:["Less than 2 seconds","3–4 seconds","5 seconds","10 seconds"], a:0, e:"Normal capillary refill is under 2 seconds; longer suggests poor perfusion (most reliable in young children)." },
+  { d:"vitals", q:"A textbook 'normal' adult blood pressure is closest to:", c:["90/60 mmHg","120/80 mmHg","150/95 mmHg","180/110 mmHg"], a:1, e:"120/80 mmHg is the classic reference for a normal adult blood pressure." },
+  { d:"vitals", q:"The normal heart rate range for an infant (under 1 year) is approximately:", c:["60–100 bpm","80–120 bpm","100–160 bpm","180–220 bpm"], a:2, e:"Infants have faster heart rates than adults, roughly 100–160 bpm at rest." },
+  { d:"vitals", q:"Pulse pressure is calculated as:", c:["Systolic plus diastolic","Systolic minus diastolic","Diastolic minus systolic","Heart rate times systolic"], a:1, e:"Pulse pressure = systolic − diastolic. For 120/80, the pulse pressure is 40 mmHg." },
+  { d:"vitals", q:"A normal peripheral pulse should feel:", c:["Weak and irregular","Strong and regular","Absent","Rapid and thready"], a:1, e:"A normal pulse is strong and regular. Weak/thready or irregular pulses can indicate poor perfusion or a cardiac problem." },
+  { d:"vitals", q:"The normal respiratory rate for an infant (under 1 year) is fastest and is approximately:", c:["8–12/min","12–20/min","25–50/min","60–80/min"], a:2, e:"Infants breathe faster than adults, roughly 25–50 breaths per minute (rates decline with age)." },
+
+  // ---------------- VITAL SIGNS — ABNORMAL RECOGNITION (+15) ----------------
+  { d:"vitals", q:"An adult heart rate of 48 beats per minute is called:", c:["Tachycardia","Bradycardia","Normocardia","Tachypnea"], a:1, e:"Bradycardia is a heart rate below 60 bpm in an adult." },
+  { d:"vitals", q:"An adult heart rate of 124 beats per minute is called:", c:["Bradycardia","Tachycardia","Normal","Bradypnea"], a:1, e:"Tachycardia is a heart rate above 100 bpm in an adult." },
+  { d:"vitals", q:"An adult breathing 8 times per minute is described as:", c:["Tachypnea","Bradypnea","Eupnea","Apnea"], a:1, e:"Bradypnea is an abnormally slow respiratory rate (below ~12/min in an adult) — watch for inadequate ventilation." },
+  { d:"vitals", q:"An adult respiratory rate of 30 per minute is described as:", c:["Bradypnea","Tachypnea","Normal","Apnea"], a:1, e:"Tachypnea is an abnormally fast respiratory rate (above ~20/min in an adult)." },
+  { d:"vitals", q:"An adult systolic blood pressure of 82 mmHg indicates:", c:["Hypertension","Hypotension","Normal pressure","Wide pulse pressure"], a:1, e:"Hypotension is generally a systolic below 90 mmHg — a concerning sign, especially with other shock indicators." },
+  { d:"vitals", q:"A blood pressure of 188/112 mmHg is best described as:", c:["Hypotension","Hypertension","Normal","Narrow pulse pressure"], a:1, e:"This is markedly elevated — hypertension. Severe hypertension with symptoms is a hypertensive emergency." },
+  { d:"vitals", q:"An SpO2 reading of 88% indicates:", c:["Normal oxygenation","Hypoxia requiring oxygen","Hyperoxia","A calibration error"], a:1, e:"An SpO2 of 88% reflects hypoxia; apply oxygen and reassess breathing adequacy." },
+  { d:"vitals", q:"A body temperature of 103.5°F (39.7°C) indicates:", c:["Hypothermia","Normal temperature","Fever (hyperthermia)","Dehydration only"], a:2, e:"This is a fever (hyperthermia); temperatures at or above 100.4°F (38°C) are considered febrile." },
+  { d:"vitals", q:"A measured core temperature of 93°F (33.9°C) indicates:", c:["Fever","Hypothermia","Normal","Heat stroke"], a:1, e:"A core temperature below 95°F (35°C) defines hypothermia — handle gently and rewarm." },
+  { d:"vitals", q:"A capillary refill time of 4 seconds indicates:", c:["Excellent perfusion","Delayed refill / poor perfusion","Normal for adults","Fever"], a:1, e:"Refill longer than 2 seconds is delayed and suggests poor peripheral perfusion (most reliable in children)." },
+  { d:"vitals", q:"A weak, 'thready' pulse most likely indicates:", c:["Excellent cardiac output","Poor perfusion / low blood volume","Hypertension","Fever"], a:1, e:"A weak, thready pulse reflects reduced stroke volume/perfusion, as seen in shock." },
+  { d:"vitals", q:"Unequal pupils (one dilated, one normal) in a patient may indicate:", c:["Normal variation only","A head injury or neurological problem","Good perfusion","Low blood sugar"], a:1, e:"Anisocoria (unequal pupils) can signal a serious head injury or brain problem — though a small percentage of people have it normally." },
+  { d:"vitals", q:"Pinpoint (constricted) pupils most commonly suggest:", c:["Blood loss","Opioid/narcotic effect","Fever","Dehydration"], a:1, e:"Pinpoint pupils are classic for opioid effect; also seen with certain other exposures and brainstem injury." },
+  { d:"vitals", q:"A rising heart rate combined with a falling blood pressure most likely indicates:", c:["Improving condition","Worsening (decompensating) shock","Normal exertion","Hypertension"], a:1, e:"Increasing tachycardia with a dropping BP signals the body can no longer compensate — decompensated shock." },
+  { d:"vitals", q:"Serial (repeated) vital signs are important primarily because:", c:["They waste time","Trends show whether the patient is improving or deteriorating","One set is always enough","They replace the physical exam"], a:1, e:"A single set is a snapshot; trends across repeated readings reveal the direction the patient is heading." },
+
+  // ---------------- PATIENT ASSESSMENT — backfill (+6) ----------------
+  { d:"assess", q:"The primary purpose of the primary assessment is to:", c:["Get a full medical history","Identify and treat immediate life threats","Take a blood pressure","Complete paperwork"], a:1, e:"The primary assessment finds and manages immediate threats to life (airway, breathing, circulation) first." },
+  { d:"assess", q:"The 'chief complaint' is best described as:", c:["The EMT's diagnosis","The main reason EMS was called, in the patient's words","The patient's full history","The dispatch code"], a:1, e:"The chief complaint is the primary problem the patient (or bystander) reports — the reason help was called." },
+  { d:"assess", q:"For a responsive medical patient, the assessment is usually:", c:["Physical exam only","History-driven, guided by the chief complaint","Skipped entirely","The same as major trauma"], a:1, e:"Responsive medical patients get a history-focused assessment (OPQRST/SAMPLE) directed by their complaint." },
+  { d:"assess", q:"Major external bleeding found during the primary assessment is addressed under which step?", c:["Airway","Breathing","Circulation","Disability"], a:2, e:"Life-threatening bleeding is controlled under 'C' (circulation) during the primary assessment." },
+  { d:"assess", q:"A patient is 'oriented x4' when they correctly know:", c:["Only their name","Person, place, time, and event","Their address only","The current weather"], a:1, e:"Alert and oriented x4 = aware of person, place, time, and event/situation — a baseline mental status check." },
+  { d:"assess", q:"The verbal hand-off report at the hospital should include:", c:["Only the patient's name","Age, chief complaint, findings, treatment given, and response","Just the vital signs","The ambulance mileage"], a:1, e:"A concise hand-off covers age/sex, chief complaint, pertinent findings, care provided, and the patient's response." },
+];
+
+// ============================================================
+// EXPANSION v5 — Communication & Documentation, Environmental
+// Emergencies, deeper Medical, and the Application Checklist.
+// ============================================================
+const QUESTIONS_V5 = [
+
+  // ---------------- COMMUNICATION & DOCUMENTATION (comm) ----------------
+  { d:"comm", q:"The patient care report (PCR) serves all of the following purposes EXCEPT:", c:["A legal record of the call","Continuity of patient care","A substitute for a verbal hand-off report","Quality improvement and billing"], a:2, e:"The PCR is a legal record supporting continuity, QI, and billing — but it does not replace the verbal hand-off to hospital staff." },
+  { d:"comm", q:"When documenting a call, you should record:", c:["Your opinions about the patient","Objective, factual findings","Assumptions about what happened","Only the diagnosis"], a:1, e:"Document objective findings and what the patient states — avoid opinions, labels, or unsupported conclusions." },
+  { d:"comm", q:"If you make an error on a written (paper) PCR, you should:", c:["Erase it completely","Scribble it out heavily","Draw a single line through it, then initial and date the correction","Start a whole new report"], a:2, e:"Correct paper errors with a single line, your initials, and the date; never obscure the original entry." },
+  { d:"comm", q:"The principle 'if it wasn't documented, it wasn't done' means:", c:["Documentation is optional","Care not recorded may be assumed not to have been performed","Only vitals need charting","Verbal reports are enough"], a:1, e:"Thorough documentation protects you and the patient; undocumented care can be treated as care that never happened." },
+  { d:"comm", q:"A radio report to the receiving hospital typically includes:", c:["Only the patient's name","Unit ID, age/sex, chief complaint, findings, treatment, and ETA","The crew's lunch plans","The patient's full address"], a:1, e:"A concise radio report gives the hospital what it needs to prepare: identifiers, complaint, key findings, care given, and ETA." },
+  { d:"comm", q:"'Subjective' information in a report refers to:", c:["What you measure or observe","What the patient tells you (symptoms)","The vital signs","The scene address"], a:1, e:"Subjective = what the patient reports (symptoms like 'chest pain'). Objective = what you observe/measure (signs like BP)." },
+  { d:"comm", q:"Open-ended questions are valuable because they:", c:["Can be answered yes or no","Let the patient describe the problem in their own words","Speed up the call","Avoid the chief complaint"], a:1, e:"Open-ended questions ('Tell me what happened') elicit richer information than yes/no questions." },
+  { d:"comm", q:"When you receive an order from medical direction, you should:", c:["Carry it out without acknowledging","Repeat (echo) the order back to confirm you heard it correctly","Ignore unclear parts","Assume you heard right"], a:1, e:"Echoing the order back confirms accuracy and reduces medication or treatment errors." },
+  { d:"comm", q:"If an order from medical control seems inappropriate or unclear, you should:", c:["Refuse to speak further","Question or clarify it before acting","Carry it out blindly","Hang up"], a:1, e:"Professionally seek clarification; you are responsible for the care you provide and should never blindly follow an order you don't understand." },
+  { d:"comm", q:"Documentation of a patient's refusal of care should include:", c:["Only the patient's name","That risks were explained, the patient's capacity, and advice to seek care","Nothing, if they refuse","The EMT's opinion of the patient"], a:1, e:"A refusal note should show the patient was competent, informed of the risks, and encouraged to call back or seek care." },
+  { d:"comm", q:"Effective radio communication should be:", c:["Full of slang and codes","Clear, concise, professional, and free of profanity","As long as possible","Editorializing about the patient"], a:1, e:"Keep transmissions brief, plain, and professional; the airwaves are shared and often recorded." },
+  { d:"comm", q:"When communicating with a young pediatric patient, you should:", c:["Speak only to the parents","Get down to their eye level, be honest, and involve the caregiver","Use complex medical terms","Move quickly and loudly"], a:1, e:"Getting to a child's level, being honest, and keeping a caregiver close builds trust and cooperation." },
+  { d:"comm", q:"Nonverbal communication (tone, body language, eye contact) matters because it:", c:["Has no effect on care","Affects how the patient perceives and trusts you","Only matters in writing","Replaces the physical exam"], a:1, e:"A calm tone, eye contact, and open posture reassure patients and improve the therapeutic relationship." },
+  { d:"comm", q:"When a patient does not speak English, the best approach is to:", c:["Guess at the meaning","Use an interpreter or translation service","Skip the history","Speak louder in English"], a:1, e:"Use a qualified interpreter or translation service so the history and consent are accurate." },
+  { d:"comm", q:"The patient care report is a legal document, so it should be:", c:["Vague and brief","Accurate, complete, legible, and unaltered","Written from memory days later","Full of abbreviations only you understand"], a:1, e:"Because the PCR can be used in court, it must be accurate, thorough, readable, and free of improper alterations." },
+  { d:"comm", q:"Standardized narrative formats such as SOAP or CHART are used to:", c:["Bill the patient","Organize the patient care report clearly","Replace vital signs","Speed up driving"], a:1, e:"Formats like SOAP (Subjective, Objective, Assessment, Plan) or CHART give the narrative a consistent, complete structure." },
+  { d:"comm", q:"On an electronic PCR, a mistake discovered after signing should be:", c:["Deleted so no one sees it","Corrected with an addendum or the system's correction function","Left as is","Overwritten silently"], a:1, e:"ePCR corrections are made through an addendum/audit-tracked correction, preserving the original record." },
+  { d:"comm", q:"Protecting patient privacy during radio and verbal reports means:", c:["Broadcasting the patient's full identity","Avoiding unnecessary patient-identifying details over open channels","Discussing the call publicly","Posting details online"], a:1, e:"Share only what's clinically necessary; unnecessary identifiers over the air or in public breach patient confidentiality." },
+  { d:"comm", q:"When speaking with a patient who has a cognitive disability, you should:", c:["Speak only to family","Speak directly to the patient, be patient, and use simple, clear language","Rush through questions","Assume they can't understand"], a:1, e:"Address the patient directly, allow extra time, and use clear language; involve caregivers who know the baseline." },
+  { d:"comm", q:"A key element of active listening with a patient is:", c:["Interrupting to save time","Letting them finish and reflecting back what you heard","Looking at your equipment","Filling in their answers"], a:1, e:"Active listening — not interrupting, making eye contact, and confirming understanding — improves accuracy and trust." },
+
+  // ---------------- ENVIRONMENTAL EMERGENCIES (environ) ----------------
+  { d:"environ", q:"The priority in caring for a drowning (submersion) patient is:", c:["Warming them slowly","Airway management and ventilation/oxygenation","Checking blood glucose","Applying a splint"], a:1, e:"Drowning is primarily a respiratory event; airway, ventilation, and oxygenation are the priority." },
+  { d:"environ", q:"A patient who was submerged and required rescue but now feels fine should be:", c:["Released at the scene","Transported for evaluation due to risk of delayed complications","Given food and sent home","Told to rest only"], a:1, e:"Submersion victims can develop delayed pulmonary complications hours later; they should be evaluated at the hospital." },
+  { d:"environ", q:"Proper care for frostbite includes:", c:["Vigorously rubbing the area","Protecting the area, avoiding refreezing, and not rubbing it","Breaking any blisters","Applying direct heat quickly"], a:1, e:"Do not rub frozen tissue (it causes damage); protect it, remove wet/constrictive items, and avoid thaw-refreeze cycles." },
+  { d:"environ", q:"Signs of severe hypothermia include:", c:["Vigorous shivering and alertness","Altered mental status with slow, weak pulse and breathing","Fever and flushed skin","Rapid, strong pulse"], a:1, e:"As hypothermia worsens, shivering stops, mental status declines, and pulse/respirations slow — a critical state." },
+  { d:"environ", q:"A severely hypothermic patient must be handled gently because rough handling can:", c:["Warm them too fast","Trigger a lethal cardiac arrhythmia","Cause a fever","Improve circulation"], a:1, e:"A cold heart is irritable; jostling can precipitate ventricular fibrillation. Move hypothermic patients carefully." },
+  { d:"environ", q:"Field care for a pit-viper snakebite includes:", c:["Applying ice and a tight tourniquet","Cutting and sucking the wound","Keeping the patient calm, removing rings/constrictive items, immobilizing the limb, and transporting","Having the patient walk it off"], a:2, e:"Keep the patient calm and still, remove constrictors, immobilize the extremity near heart level, and transport. Do NOT cut, suck, ice, or tourniquet." },
+  { d:"environ", q:"The most life-threatening reaction to a bee sting is:", c:["Localized swelling","Anaphylaxis","A small bruise","Mild itching"], a:1, e:"A systemic allergic reaction (anaphylaxis) is the true emergency — watch for airway swelling, wheezing, and hypotension." },
+  { d:"environ", q:"If a bee stinger remains embedded in the skin, you should:", c:["Squeeze it out with tweezers","Scrape it out (e.g., with a card edge)","Leave it and apply heat","Push it deeper"], a:1, e:"Scrape the stinger out rather than squeezing, which can inject more venom from the attached sac." },
+  { d:"environ", q:"Your first action with an electrical injury patient is to:", c:["Begin CPR immediately","Ensure the power source is off / scene is safe before touching the patient","Apply burn dressings","Check blood sugar"], a:1, e:"Never touch a patient still in contact with a live source — confirm the power is off and the scene is safe first." },
+  { d:"environ", q:"Electrical injuries are often more serious than they appear because:", c:["They only affect the skin","Internal tissue damage along the current path and cardiac arrhythmias may be severe despite small skin wounds","They never cause arrhythmias","Entry and exit wounds are always large"], a:1, e:"Current travels through the body, damaging deep tissue and potentially causing lethal arrhythmias even with minor skin marks." },
+  { d:"environ", q:"In a lightning-strike multiple-casualty scene, triage is reversed, meaning you:", c:["Ignore those in arrest","Treat the apparently dead (in cardiac arrest) first, since CPR can be effective","Only treat the walking wounded","Do not perform CPR"], a:1, e:"Lightning victims in arrest have a good chance of recovery with prompt CPR, so 'reverse triage' prioritizes them." },
+  { d:"environ", q:"A scuba diver who ascended too quickly and now has joint pain, shortness of breath, or confusion may have:", c:["Simple fatigue","Decompression sickness ('the bends') or an air embolism","Motion sickness","Dehydration only"], a:1, e:"Rapid ascent can cause decompression sickness or arterial gas embolism — a diving emergency." },
+  { d:"environ", q:"Definitive treatment for serious decompression (dive) illness is:", c:["Oral fluids","A recompression (hyperbaric) chamber","Bed rest","Antibiotics"], a:1, e:"Serious dive illness requires a hyperbaric recompression chamber; give high-flow O2 and transport to an appropriate facility." },
+  { d:"environ", q:"A climber with headache, nausea, and fatigue after a rapid ascent to high altitude likely has:", c:["Heat stroke","Acute mountain sickness — descent is the key treatment","Hypothermia","A stroke"], a:1, e:"Acute mountain sickness improves with descent and oxygen; worsening symptoms suggest life-threatening high-altitude edema." },
+  { d:"environ", q:"For an alert patient with heat cramps or heat exhaustion, appropriate care includes:", c:["Rapid ice-water immersion","Moving to a cool area, rest, and oral fluids/electrolytes","Withholding all fluids","Vigorous exercise"], a:1, e:"Move the patient to a cool place, have them rest, and give oral fluids if alert and able to swallow." },
+  { d:"environ", q:"A patient rescued from cold water may become hypothermic even:", c:["Only in winter","In warm weather, because water pulls heat from the body quickly","Never","Only if underweight"], a:1, e:"Immersion cools the body far faster than air, so hypothermia can occur even on warm days." },
+  { d:"environ", q:"General care for a jellyfish or marine sting includes:", c:["Rubbing the area with sand vigorously","Removing tentacles, rinsing per local protocol, and monitoring for an allergic reaction","Applying a tourniquet","Cutting the wound"], a:1, e:"Remove tentacles carefully, rinse per protocol, and watch for systemic allergic reactions." },
+  { d:"environ", q:"Heat stroke is distinguished from heat exhaustion primarily by:", c:["Heavy sweating","Altered mental status and a dangerously high body temperature","Muscle cramps only","Normal vital signs"], a:1, e:"Heat stroke is a true emergency: the patient has altered mental status and a very high core temperature — cool rapidly and transport." },
+  { d:"environ", q:"A patient pulled from an enclosed fire may be at risk for both airway burns and:", c:["Frostbite","Carbon monoxide poisoning","Decompression sickness","Altitude sickness"], a:1, e:"Enclosed-space fires expose patients to superheated air (airway burns) and toxic gases like carbon monoxide." },
+  { d:"environ", q:"When treating any environmental emergency, a constant priority is:", c:["Removing the patient from the harmful environment while ensuring rescuer safety","Ignoring scene hazards","Treating on scene indefinitely","Waiting for the weather to change"], a:0, e:"Safely removing the patient from the hazard (heat, cold, water, current) — without endangering yourself — is fundamental." },
+
+  // ---------------- MEDICAL & TOX — breadth (+14) ----------------
+  { d:"medical", q:"Vomiting bright-red blood or passing black, tarry stools indicates:", c:["A respiratory problem","Gastrointestinal (GI) bleeding","A muscle injury","Dehydration only"], a:1, e:"Hematemesis (vomiting blood) and melena (black tarry stools) are classic signs of GI bleeding — monitor for shock." },
+  { d:"medical", q:"General EMT care for a patient with severe abdominal pain includes:", c:["Giving food and water","Position of comfort, nothing by mouth, and monitoring for shock","Deep palpation to find the cause","Forcing them to walk"], a:1, e:"Keep the patient comfortable, give nothing by mouth (possible surgery), and watch for signs of shock; transport." },
+  { d:"medical", q:"A dialysis patient who has missed treatments may present with:", c:["Low potassium and dehydration","Fluid overload and dangerously high potassium","Fever only","No abnormalities"], a:1, e:"Missed dialysis leads to fluid overload (pulmonary edema) and hyperkalemia, which can cause lethal arrhythmias." },
+  { d:"medical", q:"On a patient with a dialysis fistula or shunt in one arm, you should:", c:["Take the blood pressure in that arm","Avoid taking BP or starting an IV in that arm","Apply a tourniquet to it","Ignore it"], a:1, e:"Protect the fistula/shunt arm — no BP cuff or venipuncture there, as it can damage the access." },
+  { d:"medical", q:"A patient with fever, severe headache, a stiff neck, and sensitivity to light may have:", c:["A simple cold","Meningitis","Heat exhaustion","A sprain"], a:1, e:"Fever, stiff neck, headache, and photophobia suggest meningitis — mask the patient and yourself and transport." },
+  { d:"medical", q:"Sepsis should be suspected when a patient shows:", c:["Signs of infection plus signs of shock (fever/low temp, fast heart rate, low BP, altered mental status)","Only a mild cough","A single bruise","Normal vitals"], a:0, e:"Sepsis is a life-threatening response to infection: fever or hypothermia, tachycardia, hypotension, and altered mental status." },
+  { d:"medical", q:"Severe flank pain that radiates to the groin, with the patient unable to find a comfortable position, suggests:", c:["A kidney stone","A heart attack","A stroke","A seizure"], a:0, e:"Kidney stones cause severe, colicky flank-to-groin pain and restlessness; care is supportive with transport." },
+  { d:"medical", q:"Yellowing of the skin and eyes (jaundice) most often indicates a problem with the:", c:["Lungs","Liver","Kidneys","Heart"], a:1, e:"Jaundice reflects bilirubin buildup, commonly from liver dysfunction." },
+  { d:"medical", q:"When caring for a patient expressing suicidal thoughts, you should:", c:["Leave them alone to calm down","Take it seriously, ensure scene safety, do not leave them alone, and transport","Dismiss the statements","Argue them out of it"], a:1, e:"Treat every suicidal statement seriously: keep the scene and patient safe, stay with them, and ensure evaluation." },
+  { d:"medical", q:"During a psychiatric/behavioral emergency, your first priority is:", c:["Restraining the patient immediately","Your own and the scene's safety, then ruling out medical causes","Diagnosing the disorder","Leaving quickly"], a:1, e:"Ensure safety first, approach calmly, and rule out treatable medical causes (hypoglycemia, hypoxia, head injury) of the behavior." },
+  { d:"medical", q:"Signs of dehydration from prolonged vomiting and diarrhea include:", c:["Moist skin and slow pulse","Dry mucous membranes, rapid pulse, and poor skin turgor","High blood pressure","Bradycardia and flushing"], a:1, e:"Fluid loss causes dry mouth, tachycardia, and reduced skin turgor; monitor for hypovolemic shock." },
+  { d:"medical", q:"Sudden 'tearing' abdominal or back pain with a pulsating abdominal mass suggests:", c:["Indigestion","A possible abdominal aortic aneurysm — a load-and-go emergency","A muscle strain","Constipation"], a:1, e:"A pulsatile mass with tearing pain may be a leaking/ruptured AAA — handle gently, treat for shock, and transport rapidly." },
+  { d:"medical", q:"For a suspected airborne infectious disease such as tuberculosis, appropriate PPE includes:", c:["Gloves only","A respirator/mask (and masking the patient) plus standard precautions","No PPE","A gown only"], a:1, e:"Respiratory pathogens call for a fitted mask/respirator, masking the patient if tolerated, and standard precautions." },
+  { d:"medical", q:"A patient with severe agitation, hyperthermia, and combativeness (excited delirium) is:", c:["Faking illness","Experiencing a medical emergency with risk of sudden deterioration","Simply drunk","Not a priority"], a:1, e:"Excited delirium is a medical emergency; minimize struggle, avoid prolonged restraint, monitor closely, and get ALS/rapid transport." },
+];
+
+// ============================================================
+// APPLICATION PACKET CHECKLIST
+// ============================================================
+const CHECKLIST = [
+  { g:"Application core", items:[
+    { t:"Completed VVC admission application (submitted online via NexGen)" },
+    { t:"Copy of current, valid California EMT license/card" },
+    { t:"Copy of current, valid BLS Healthcare Provider CPR card" },
+    { t:"Copy of High School diploma or equivalent" },
+    { t:"Unofficial transcripts from all colleges (completed and in-progress coursework)" },
+  ]},
+  { g:"Time-sensitive — must be signed & dated within 30 days", warn:true, items:[
+    { t:"Work Experience Letter verifying 1000 hrs / 6 months FT EMT experience", n:"On department letterhead, issued by an agency representative, signed and dated within the last 30 days." },
+    { t:"Letter of Recommendation #1", n:"Signed and dated within 30 days. Must be different from the work experience letter." },
+    { t:"Letter of Recommendation #2", n:"Signed and dated within 30 days. Must be different from the work experience letter." },
+  ]},
+  { g:"Health records — needed before clinical/field (not at application)", items:[
+    { t:"Negative TB test or chest x-ray within the last 12 months" },
+    { t:"Hepatitis B immunization or titer showing immunity (within 5 years)" },
+    { t:"Rubella immunization or titer showing immunity (within 5 years)" },
+    { t:"Varicella (chickenpox) immunization or titer showing immunity (within 5 years)" },
+  ]},
+  { g:"Process & readiness", items:[
+    { t:"Submit online only — mailed or hand-delivered packets are not accepted" },
+    { t:"Double-check the packet is complete — incomplete applications are rejected" },
+    { t:"Prepare for the EMT written screening exam (drill the domains in this app)" },
+    { t:"Prepare for the oral/panel interview (use the Interview Coach + camera)" },
+    { t:"Confirm the current application window, deadline, and document list on the VVC paramedic page", n:"Requirements and dates change every cycle — verify before you submit." },
+  ]},
+];
+
+QUESTIONS.push(...QUESTIONS_EXTRA, ...QUESTIONS_MATH, ...QUESTIONS_V4, ...QUESTIONS_V5);
+
+/* ============ Persistence (window.storage in-artifact; memory fallback when downloaded) ============ */
+const store = {
+  mem:{},
+  async get(k){
+    try{
+      if(window.storage){
+        const p = window.storage.get(k,false);
+        const r = await Promise.race([p, new Promise(res=>setTimeout(()=>res(null),1500))]);
+        if(r) return JSON.parse(r.value);
+      }
+    }catch(e){}
+    return this.mem[k]??null;
+  },
+  async set(k,v){ this.mem[k]=v; try{ if(window.storage){await window.storage.set(k,JSON.stringify(v),false);} }catch(e){} }
+};
+
+let progress = {};
+
+const $ = id => document.getElementById(id);
+const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];} return a; };
+const domName = id => (DOMAINS.find(d=>d.id===id)||{}).name || id;
+const fmt = s => { s=Math.max(0,Math.round(s)); const m=(s/60)|0, sec=s%60; return m+':'+String(sec).padStart(2,'0'); };
+
+// Render the home grid immediately — never gate it behind storage.
+try{ renderHome(); }catch(e){}
+// Then load saved progress in the background and refresh if it arrives.
+(async()=>{ try{ const p = await store.get('vvc_progress'); if(p){ progress = p; renderHome(); } }catch(e){} })();
+
+/* ============ Views ============ */
+const VIEWS=['home','quiz','results','flash','interview','checklist'];
+function show(v){ if(v!=='interview' && typeof stopCam==='function') stopCam(); VIEWS.forEach(x=>$(x).classList.toggle('hidden',x!==v)); window.scrollTo(0,0); }
+function goHome(){ stopTimer(); show('home'); renderHome(); }
+
+/* ============ Home ============ */
+function renderHome(){
+  const grid=$('domainGrid'); grid.innerHTML='';
+  DOMAINS.forEach(d=>{
+    const total=QUESTIONS.filter(q=>q.d===d.id).length;
+    const best=(progress[d.id]&&progress[d.id].best)||0;
+    const el=document.createElement('button');
+    el.className='tile'; el.setAttribute('aria-label',d.name+' quiz');
+    el.onclick=()=>startDomain(d.id);
+    el.innerHTML=`<div class="tcount">${total} Q</div>
+      <div class="tname">${d.name}</div>
+      <div class="tblurb">${d.blurb}</div>
+      <div class="bar"><i style="width:${best}%"></i></div>`;
+    grid.appendChild(el);
+  });
+}
+
+/* ============ Exam setup ============ */
+const PACE = 72; // seconds per question in timed mode (~1.2 min)
+let examCfg = { count:50, timed:true };
+
+function openExamSetup(){
+  syncSeg('segCount', examCfg.count);
+  syncSeg('segTimed', examCfg.timed?1:0);
+  updatePace();
+  $('examSetup').classList.remove('hidden');
+}
+function closeExamSetup(){ $('examSetup').classList.add('hidden'); }
+function syncSeg(id,val){
+  Array.from($(id).children).forEach(b=>b.classList.toggle('on', String(b.dataset.v)===String(val)));
+}
+function wireSeg(id, onPick){
+  $(id).addEventListener('click', e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    Array.from($(id).children).forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); onPick(b.dataset.v); updatePace();
+  });
+}
+wireSeg('segCount', v=>examCfg.count=parseInt(v));
+wireSeg('segTimed', v=>examCfg.timed=(v==='1'));
+
+function updatePace(){
+  const el=$('pacePreview');
+  if(examCfg.timed){
+    const total=examCfg.count*PACE;
+    el.innerHTML=`<b>${examCfg.count} questions</b> in <b>${fmt(total)}</b> — about 1.2 min per question. The clock counts down and auto-submits at zero.`;
+  }else{
+    el.innerHTML=`<b>Untimed practice</b> — no clock. Work through ${examCfg.count} questions at your own pace with full explanations.`;
+  }
+}
+function launchExam(){
+  closeExamSetup();
+  const pool=shuffle(QUESTIONS).slice(0, Math.min(examCfg.count, QUESTIONS.length));
+  beginSession(pool, examCfg.timed?'Timed Exam':'Full Exam', null, examCfg.timed);
+}
+
+/* ============ Quiz engine ============ */
+let session=null;
+function beginSession(pool,label,domainId,timed){
+  session={ list:pool, i:0, correct:0, streak:0, best:0, wrong:0, answered:false,
+            label, domainId, timed:!!timed, startMs:Date.now(), expired:false, totalSec:0 };
+  $('qDomainChip').textContent=label;
+  const t=$('qTimer');
+  if(timed){
+    session.totalSec=pool.length*PACE;
+    session.remain=session.totalSec;
+    t.style.display=''; t.className='chip';
+    renderTimer(); startTimer();
+  }else{
+    t.style.display='none'; stopTimer();
+  }
+  show('quiz'); renderQ();
+}
+function startDomain(id){
+  const pool=shuffle(QUESTIONS.filter(q=>q.d===id));
+  beginSession(pool, domName(id), id, false);
+}
+function retrySame(){
+  if(!session) return goHome();
+  if(session.domainId) startDomain(session.domainId);
+  else beginSession(shuffle(QUESTIONS).slice(0,session.list.length), session.label, null, session.timed);
+}
+
+/* ---- timer ---- */
+let timerInt=null;
+function startTimer(){
+  stopTimer();
+  timerInt=setInterval(()=>{
+    session.remain--;
+    renderTimer();
+    if(session.remain<=0){ session.expired=true; stopTimer(); finishSession(); }
+  },1000);
+}
+function stopTimer(){ if(timerInt){ clearInterval(timerInt); timerInt=null; } }
+function renderTimer(){
+  const t=$('qTimer'); $('qTime').textContent=fmt(session.remain);
+  t.className='chip'+(session.remain<=60?' crit':session.remain<=300?' warn':'');
+}
+
+function renderQ(){
+  const q=session.list[session.i];
+  session.answered=false;
+  $('qCat').textContent=domName(q.d);
+  $('qText').textContent=q.q;
+  $('qProg').style.width=((session.i)/session.list.length*100)+'%';
+  $('qCounter').textContent=`Question ${session.i+1} of ${session.list.length}`;
+  $('qCorrect').textContent=session.correct;
+  $('qStreak').textContent=session.streak;
+  const ch=$('qChoices'); ch.innerHTML='';
+  const keys=['A','B','C','D','E'];
+  q.c.forEach((txt,idx)=>{
+    const b=document.createElement('button');
+    b.className='choice'; b.innerHTML=`<span class="key">${keys[idx]}</span><span>${txt}</span>`;
+    b.onclick=()=>answer(idx);
+    ch.appendChild(b);
+  });
+  $('qExplain').className='explain'; $('qExplain').innerHTML='';
+  $('qNext').className='nextbtn';
+  $('qNext').textContent = session.i===session.list.length-1 ? 'See Results →' : 'Next →';
+}
+function answer(idx){
+  if(session.answered) return;
+  session.answered=true;
+  const q=session.list[session.i];
+  const btns=$('qChoices').children;
+  Array.from(btns).forEach(b=>b.disabled=true);
+  if(idx===q.a){
+    btns[idx].classList.add('correct');
+    session.correct++; session.streak++; session.best=Math.max(session.best,session.streak);
+  }else{
+    btns[idx].classList.add('wrong');
+    btns[q.a].classList.add('correct');
+    session.wrong++; session.streak=0;
+  }
+  $('qCorrect').textContent=session.correct;
+  $('qStreak').textContent=session.streak;
+  const ex=$('qExplain');
+  ex.innerHTML=`<b>${idx===q.a?'Correct.':'Answer: '+String.fromCharCode(65+q.a)+'.'}</b> ${q.e}`;
+  ex.className='explain show';
+  $('qNext').className='nextbtn show';
+}
+function nextQ(){
+  session.i++;
+  if(session.i>=session.list.length) finishSession();
+  else renderQ();
+}
+
+/* ============ Results ============ */
+async function finishSession(){
+  stopTimer();
+  const total=session.list.length;
+  const missed=total-session.correct;
+  const pct=Math.round(session.correct/total*100);
+  const elapsed=Math.round((Date.now()-session.startMs)/1000);
+
+  $('rPct').textContent=pct+'%';
+  $('rScore').textContent=`${session.correct} / ${total}`;
+  $('rRight').textContent=session.correct;
+  $('rWrong').textContent=missed;
+  $('rBest').textContent=session.best;
+
+  const rt=$('rTime');
+  if(session.timed){
+    if(session.expired) rt.innerHTML=`\u29D7 Time expired — auto-submitted at ${fmt(session.totalSec)}`;
+    else rt.innerHTML=`\u29D7 Finished in ${fmt(elapsed)} of ${fmt(session.totalSec)}`;
+  }else{
+    rt.innerHTML=`\u29D7 Time: ${fmt(elapsed)}`;
+  }
+
+  const circ=414.7;
+  $('ring').style.strokeDashoffset=circ;
+  requestAnimationFrame(()=>{ setTimeout(()=>{ $('ring').style.strokeDashoffset=circ*(1-pct/100); },60); });
+  $('ring').style.stroke = pct>=80?'var(--green)': pct>=70?'var(--teal)': pct>=50?'var(--amber)':'var(--crim)';
+
+  let verdict,sub;
+  if(pct>=90){verdict='Academy-Ready';sub='Excellent. This is the range that stands out in a competitive applicant pool. Keep it sharp and move on to oral panel prep.';}
+  else if(pct>=80){verdict='Strong — Advancement Level';sub='You would clear the 80% bar VVC uses to advance between courses. Tighten up your missed domains to build margin above the cut score.';}
+  else if(pct>=70){verdict='Passing, Not Yet Competitive';sub='Above a typical pass line, but the cut score floats with the pool. Target the domains you missed and push toward 85%+.';}
+  else if(pct>=50){verdict='Keep Drilling';sub='The foundation is there. Focus your reps on the weakest domains before you sit the real screening.';}
+  else {verdict='Rebuild the Base';sub='Work the flashcard deck and go domain-by-domain. Come back to the simulator once each domain feels solid.';}
+  $('rVerdict').textContent=verdict; $('rSub').textContent=sub;
+
+  if(session.domainId){
+    const cur=progress[session.domainId]||{best:0};
+    if(pct>cur.best){ progress[session.domainId]={best:pct}; await store.set('vvc_progress',progress); }
+  }
+  show('results');
+}
+
+/* ============ Flashcards ============ */
+let deck=null,fi=0,flipped=false;
+function showFlash(scope){
+  deck = shuffle(QUESTIONS.slice()); fi=0; flipped=false;
+  $('fDomainChip').textContent='All Domains';
+  renderFlash(); show('flash');
+}
+function renderFlash(){
+  const q=deck[fi]; flipped=false;
+  $('fCard').classList.remove('flip');
+  $('fTag').textContent=domName(q.d);
+  $('fFront').textContent=q.q;
+  $('fAns').textContent=q.c[q.a];
+  $('fExp').textContent=q.e;
+  $('fCounter').textContent=`Card ${fi+1} of ${deck.length}`;
+  $('fPrev').disabled=fi===0;
+  $('fNext').disabled=fi===deck.length-1;
+}
+function flipCard(){ flipped=!flipped; $('fCard').classList.toggle('flip',flipped); }
+function flashNav(dir){ fi=Math.max(0,Math.min(deck.length-1,fi+dir)); renderFlash(); }
+
+/* ============ Interview ============ */
+let ii=0;
+function showInterview(){ ii=0; renderIv(); show('interview'); }
+function renderIv(){
+  const it=INTERVIEW[ii];
+  $('ivBody').innerHTML=`<div class="iv" style="border:none;padding:0;margin:0">
+    <div class="ivq">${it.q}</div>
+    <div class="ivtip"><b>How to answer</b>${it.tip}</div></div>`;
+  $('ivCounter').textContent=`Question ${ii+1} of ${INTERVIEW.length}`;
+  $('ivPrev').disabled=ii===0; $('ivNext').disabled=ii===INTERVIEW.length-1;
+}
+function ivNav(dir){ ii=Math.max(0,Math.min(INTERVIEW.length-1,ii+dir)); renderIv(); }
+
+/* ============ Camera practice (front-facing self-review) ============ */
+let camStream=null, mediaRec=null, recChunks=[], recURL=null, camInt=null, camStart=0, recStart=0, recording=false;
+
+async function toggleCam(){
+  if(camStream) return stopCam();
+  const err=$('camErr'); err.classList.add('hidden'); err.textContent='';
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    return showCamErr("This browser doesn't expose camera access here. Try opening the downloaded file in Chrome or Safari.");
+  }
+  try{
+    camStream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user' }, audio:true });
+    $('camVideo').srcObject = camStream;
+    $('camPanel').classList.remove('hidden');
+    $('camToggle').classList.add('active');
+    $('camToggle').textContent='◉ Camera on';
+    camStart=Date.now();
+    startCamClock();
+  }catch(e){
+    let msg="Couldn't open the camera. ";
+    if(e && (e.name==='NotAllowedError'||e.name==='SecurityError'))
+      msg+="Permission was blocked. If you're viewing this inside another app's preview, download the file and open it directly (over https or a local server) and allow camera access when prompted.";
+    else if(e && e.name==='NotFoundError') msg+="No camera was detected on this device.";
+    else msg+="It may need a secure (https) context. Download the file and open it in a browser, then allow the camera.";
+    showCamErr(msg);
+  }
+}
+function showCamErr(m){ const e=$('camErr'); e.textContent=m; e.classList.remove('hidden'); }
+
+function startCamClock(){
+  stopCamClock();
+  camInt=setInterval(()=>{
+    const base = recording ? recStart : camStart;
+    $('camClock').textContent = fmt((Date.now()-base)/1000);
+  },250);
+}
+function stopCamClock(){ if(camInt){ clearInterval(camInt); camInt=null; } }
+
+function toggleRec(){
+  if(!camStream) return;
+  if(recording){ mediaRec && mediaRec.state!=='inactive' && mediaRec.stop(); return; }
+  clearRec();
+  try{
+    recChunks=[];
+    mediaRec=new MediaRecorder(camStream);
+    mediaRec.ondataavailable=ev=>{ if(ev.data && ev.data.size) recChunks.push(ev.data); };
+    mediaRec.onstop=()=>{
+      recording=false;
+      $('recBtn').classList.remove('recording'); $('recBtn').textContent='● Record answer';
+      $('recDot').classList.add('hidden');
+      if(recChunks.length){
+        const blob=new Blob(recChunks,{type:recChunks[0].type||'video/webm'});
+        recURL=URL.createObjectURL(blob);
+        const pb=$('playback'); pb.src=recURL; pb.muted=false;
+        pb.classList.remove('hidden'); $('playRow').classList.remove('hidden');
+      }
+      $('camClock').textContent = fmt((Date.now()-camStart)/1000);
+    };
+    mediaRec.start();
+    recording=true; recStart=Date.now();
+    $('recBtn').classList.add('recording'); $('recBtn').textContent='■ Stop recording';
+    $('recDot').classList.remove('hidden');
+  }catch(e){ showCamErr("Recording isn't supported in this browser. The live camera still works for practice."); }
+}
+function clearRec(){
+  const pb=$('playback'); pb.pause&&pb.pause(); pb.removeAttribute('src'); pb.classList.add('hidden');
+  $('playRow').classList.add('hidden');
+  if(recURL){ URL.revokeObjectURL(recURL); recURL=null; }
+  recChunks=[];
+}
+function stopCam(){
+  if(recording && mediaRec && mediaRec.state!=='inactive'){ try{mediaRec.stop();}catch(e){} }
+  recording=false;
+  stopCamClock();
+  if(camStream){ camStream.getTracks().forEach(t=>t.stop()); camStream=null; }
+  $('camVideo').srcObject=null;
+  clearRec();
+  $('camPanel').classList.add('hidden');
+  $('camToggle').classList.remove('active');
+  $('camToggle').textContent='◉ Practice on camera';
+  $('recBtn').classList.remove('recording'); $('recBtn').textContent='● Record answer';
+  $('recDot').classList.add('hidden');
+  $('camClock').textContent='0:00';
+}
+
+/* ============ Application Checklist ============ */
+let ckState={};
+(async()=>{ ckState = (await store.get('vvc_checklist')) || {}; })();
+
+function showChecklist(){ renderChecklist(); show('checklist'); }
+function ckKey(g,i){ return 'g'+g+'i'+i; }
+function renderChecklist(){
+  const body=$('ckBody'); body.innerHTML='';
+  let total=0, done=0;
+  CHECKLIST.forEach((grp,gi)=>{
+    const wrap=document.createElement('div');
+    wrap.className='ck-group'+(grp.warn?' warn':'');
+    const gn=document.createElement('div'); gn.className='ck-gname';
+    gn.textContent=(grp.warn?'\u26A0 ':'')+grp.g;
+    wrap.appendChild(gn);
+    grp.items.forEach((it,ii)=>{
+      total++;
+      const key=ckKey(gi,ii);
+      const on=!!ckState[key]; if(on) done++;
+      const btn=document.createElement('button');
+      btn.className='ck-item'+(on?' done':'');
+      btn.onclick=()=>toggleCk(gi,ii);
+      btn.innerHTML=`<span class="ck-box"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3 6-7" stroke="#06231f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`+
+        `<span><span class="ck-t">${it.t}</span>${it.n?`<span class="ck-n">${it.n}</span>`:''}</span>`;
+      wrap.appendChild(btn);
+    });
+    body.appendChild(wrap);
+  });
+  $('ckProg').textContent=`${done} / ${total}`;
+}
+async function toggleCk(gi,ii){
+  const key=ckKey(gi,ii);
+  ckState[key]=!ckState[key];
+  renderChecklist();
+  store.set('vvc_checklist',ckState);
+}
+
+/* ============ Reset ============ */
+async function resetProgress(){ progress={}; await store.set('vvc_progress',{}); renderHome(); }
+
+/* keyboard shortcuts */
+document.addEventListener('keydown',e=>{
+  if(!$('quiz').classList.contains('hidden') && session && !session.answered){
+    const n=parseInt(e.key); const q=session.list[session.i];
+    if(n>=1&&n<=q.c.length) answer(n-1);
+  }
+  if(!$('flash').classList.contains('hidden')){
+    if(e.key==='ArrowRight') flashNav(1);
+    if(e.key==='ArrowLeft') flashNav(-1);
+    if(e.key===' '){e.preventDefault();flipCard();}
+  }
+  if(!$('examSetup').classList.contains('hidden') && e.key==='Escape') closeExamSetup();
+});
+
+</script>
+</body>
+</html>
